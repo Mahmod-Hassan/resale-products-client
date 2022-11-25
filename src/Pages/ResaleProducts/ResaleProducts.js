@@ -11,9 +11,11 @@ const ResaleProducts = () => {
                 products.map(product => <div className='shadow-xl p-5 rounded'>
                     <img className='w-full h-48' src={product.img} alt="" />
                     <h2 className="text-2xl mt-5 text-pink-600 font-bold">{product.product_name}</h2>
-                    <p className='text-purple-400 italic'>seller : {product.seller_name}</p>
+                    <p className='text-purple-400 italic'>seller name : {product.seller_name}</p>
+                    <p className='text-purple-400 italic'>location : {product.seller_location}</p>
+                    <p className='text-purple-400 italic'>used : {product.using}</p>
                     <p className='text-xl text-purple-700 font-bold'>Resale Price : {product.resale_price}$</p>
-                    <p className='text-xl text-purple-700 font-bold'>Original Price : {product.original_price}$</p>
+                    <p className='text-xl text-purple-700 font-bold '>Original Price : <span className='line-through'>{product.original_price}</span>$</p>
                     <button className='btn btn-primary'>Book Now</button>
                 </div>)
             }

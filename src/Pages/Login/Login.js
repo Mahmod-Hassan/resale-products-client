@@ -1,11 +1,26 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Login = () => {
+    const { signIn } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const from = location.state?.from?.pathname || '/';
     const handleLogin = data => {
-        console.log(data);
+        const { email, password } = data;
+        signIn(email, password)
+            .then(result => {
+                console.log(result.user);
+                toast.success('successfully logged In')
+                navigate(from, { replace: true });
+            })
+            .catch(err => {
+                toast.error(err.message);
+            })
     }
     return (
         <div>
@@ -15,16 +30,19 @@ const Login = () => {
 
                     <div className="form-control">
                         <label className="label">Email</label>
-                        <input {...register("email", { required: true })} type="text" placeholder="email" className="input input-bordered" />
+                        <input {...register("email", { required: "email is required" })} type="text" placeholder="email" className="input input-bordered" />
+                        {
+                            errors.email && <p className='text-red-500'>{errors.email.message}</p>
+                        }
                     </div>
 
                     <div className="form-control">
                         <label className="label">Password</label>
-                        <input {...register("password", { required: true })} type="text" placeholder="password" className="input input-bordered" />
+                        <input {...register("password", { required: "password is required" })} type="text" placeholder="password" className="input input-bordered" />
+                        {
+                            errors.password && <p className='text-red-500'>{errors.password.message}</p>
+                        }
                     </div>
-
-
-                    {errors.exampleRequired && <span>This field is required</span>}
 
                     <button className='btn btn-primary mt-4 w-full' type="submit">Login</button>
                 </form>

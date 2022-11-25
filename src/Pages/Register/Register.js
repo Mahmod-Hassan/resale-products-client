@@ -1,11 +1,49 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
+    const { createUser, updateUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [error, setError] = useState('');
     const handleRegister = data => {
-        console.log(data);
+        const { email, password, name, photoUrl } = data;
+        if (!/[A-Z]/.test(password)) {
+            setError('at least one uppercase');
+            return;
+        }
+        if (!/[0-9]/.test(password)) {
+            setError('at least One number');
+            return;
+        }
+        if (password.length < 6) {
+            setError('at least 6 character')
+            return;
+        }
+        createUser(email, password)
+            .then(result => {
+                console.log(result.user);
+                const userInfo = {
+                    displayName: name,
+                    photoUrl: photoUrl,
+                }
+                updateUser(userInfo)
+                    .then(result => {
+                        console.log(result.user)
+                        setError('');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        toast.error(err.message);
+                    })
+                toast.success('Congratulations registration Successful')
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error(err.message);
+            })
     }
     return (
         <div>
@@ -15,26 +53,31 @@ const Register = () => {
 
                     <div className="form-control">
                         <label className="label">Name</label>
-                        <input {...register("name", { required: true })} type="text" placeholder="Name" className="input input-bordered" />
+                        <input {...register("name", { required: "name is required" })} type="text" placeholder="Name" className="input input-bordered" />
+                        {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                     </div>
 
                     <div className="form-control">
                         <label className="label">Photo Url</label>
-                        <input {...register("photoUrl", { required: true })} type="text" placeholder="Photo Url" className="input input-bordered" />
+                        <input {...register("photoUrl")} type="text" placeholder="Photo Url" className="input input-bordered" />
                     </div>
 
                     <div className="form-control">
                         <label className="label">Email</label>
-                        <input {...register("email", { required: true })} type="text" placeholder="email" className="input input-bordered" />
+                        <input {...register("email", { required: "email required" })} type="text" placeholder="email" className="input input-bordered" />
+                        {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                     </div>
 
                     <div className="form-control">
                         <label className="label">Password</label>
-                        <input {...register("password", { required: true })} type="text" placeholder="password" className="input input-bordered" />
+                        <input {...register("password", { required: "password field required" })} type="text" placeholder="password" className="input input-bordered" />
+                        {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
 
-
-                    {errors.exampleRequired && <span>This field is required</span>}
+                    {
+                        error && <p className='text-red-500'>{error}
+                        </p>
+                    }
 
                     <button className='btn btn-secondary mt-4 w-full' type="submit">Sign Up</button>
                 </form>
