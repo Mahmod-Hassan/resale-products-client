@@ -5,7 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Login = () => {
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,6 +16,17 @@ const Login = () => {
             .then(result => {
                 console.log(result.user);
                 toast.success('successfully logged In')
+                navigate(from, { replace: true });
+            })
+            .catch(err => {
+                toast.error(err.message);
+            })
+    }
+
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => {
+                toast.success('sign in with google successful')
                 navigate(from, { replace: true });
             })
             .catch(err => {
@@ -48,7 +59,7 @@ const Login = () => {
                 </form>
                 <p className='text-sm mt-10 mb-5'>New to this website <Link to='/register' className='text-blue-500 underline hover:underline-offset-8 font-bold'>please register</Link></p>
 
-                <button className="btn btn-outline btn-white w-full">SignIn With Google</button>
+                <button onClick={handleGoogleSignIn} className="btn btn-outline btn-white w-full">SignIn With Google</button>
             </div>
         </div>
     );
