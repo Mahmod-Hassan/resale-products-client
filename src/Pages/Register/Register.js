@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const Register = () => {
     const { createUser, updateUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState('');
+    const navigate = useNavigate();
     const handleRegister = data => {
         const { email, password, name, photoUrl } = data;
         if (!/[A-Z]/.test(password)) {
@@ -33,6 +34,7 @@ const Register = () => {
                     .then(result => {
                         console.log(result.user)
                         setError('');
+                        navigate('/');
                     })
                     .catch(err => {
                         console.log(err);

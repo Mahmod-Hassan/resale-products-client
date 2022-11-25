@@ -4,7 +4,7 @@ import Main from '../../Layout/Main';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
 import Register from '../../Pages/Register/Register';
-import ResaleProducts from '../../Pages/ResaleProducts/ResaleProducts';
+import GetProductsByCategoryId from '../../Pages/ResaleProducts/GetProductsByCategoryId/GetProductsByCategoryId';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
 
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/category/:id',
-                element: <PrivateRoute><ResaleProducts></ResaleProducts></PrivateRoute>,
+                element: <PrivateRoute><GetProductsByCategoryId></GetProductsByCategoryId></PrivateRoute>,
                 loader: ({ params }) => fetch(`http://localhost:5000/category/${params.id}`)
             },
             {
