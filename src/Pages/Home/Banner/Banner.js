@@ -37,12 +37,12 @@ const Banner = () => {
                     className="carousel-item relative w-full mx-5">
 
                     <div className='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-20 place-items-center p-5'>
-                        <div className=''>
-                            <h2 className="text-4xl text-purple-500">{item.brand_name}</h2>
+                        <div>
+                            <h2 className="text-4xl text-purple-500 font-bold mb-5">{item.brand_name}</h2>
                             <p>{item.phone_info}</p>
                         </div>
 
-                        <div className=''>
+                        <div>
                             <img src={item.img} alt="" className='h-96' />
                         </div>
                     </div>
