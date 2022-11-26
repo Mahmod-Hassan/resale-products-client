@@ -10,17 +10,14 @@ const Navbar = () => {
     const routes = <>
         <Link to='/' className='font-semibold mr-4 hover:text-red-500'>Home</Link>
         {
-            user?.uid ?
-                <>
-                    <button onClick={handleLogout} className="btn btn-outline btn-xs sm:btn-sm md:btn-md rounded">Logout</button>
-                </>
-
-                :
-                <>
-                    <Link className='font-semibold mr-4 hover:text-red-500' to='/login'>Login</Link>
-                    <Link className='font-semibold mr-4 hover:text-red-500' to='/register'>Register</Link>
-
-                </>
+            user?.uid &&
+            <>
+                <select className="select select-bordered w-28 sm:my-4 md:m-0 md:mr-4">
+                    <option>Buyer</option>
+                    <option>seller</option>
+                </select>
+                <Link to='/dashboard'>Dashboard</Link>
+            </>
         }
     </>
     return (
@@ -31,7 +28,7 @@ const Navbar = () => {
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
-                        <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                        <ul tabIndex={1} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             {routes}
                         </ul>
                     </div>
@@ -42,10 +39,23 @@ const Navbar = () => {
                         <li>{routes}</li>
                     </ul>
                 </div>
+
                 <div className="navbar-end">
                     {
-                        user?.uid && <img src={user?.photoUrl} alt="" />
+                        user?.uid ?
+                            <>
+                                <img src={user?.photoUrl} alt="" />
+                                <button onClick={handleLogout} className="btn btn-outline btn-error btn-xs sm:btn-sm md:btn-md rounded">Logout</button>
+                            </>
+                            :
+                            <>
+                                <Link className='btn mr-4 btn-outline btn-primary btn-xs sm:btn-sm md:btn-md rounded' to='/login'>Login</Link>
+                                <Link className='btn btn-outline btn-xs sm:btn-sm md:btn-md rounded' to='/register'>SignUp</Link>
+                            </>
                     }
+                    <label tabIndex={2} htmlFor="dashboard-drawer" className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
                 </div>
             </div>
         </div>

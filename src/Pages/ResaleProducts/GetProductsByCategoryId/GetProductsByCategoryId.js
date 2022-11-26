@@ -5,7 +5,7 @@ import ResaleProducts from '../ResaleProducts/ResaleProducts';
 
 const GetProductsByCategoryId = () => {
     const products = useLoaderData();
-    const [resaleProduct, setResaleProduct] = useState({});
+    const [resaleProduct, setResaleProduct] = useState(null);
     return (
         <div>
 
@@ -18,9 +18,14 @@ const GetProductsByCategoryId = () => {
                     ></ResaleProducts>)
                 }
             </div>
-            <BookingModal
-                product={resaleProduct}
-            ></BookingModal>
+            {
+                resaleProduct && <>
+                    <BookingModal
+                        product={resaleProduct}
+                        setResaleProduct={setResaleProduct}
+                    ></BookingModal>
+                </>
+            }
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -49,7 +49,7 @@ const Login = () => {
 
                     <div className="form-control">
                         <label className="label">Password</label>
-                        <input {...register("password", { required: "password is required" })} type="text" placeholder="password" className="input input-bordered" />
+                        <input {...register("password", { required: "password is required" })} type="password" placeholder="password" className="input input-bordered" />
                         {
                             errors.password && <p className='text-red-500'>{errors.password.message}</p>
                         }

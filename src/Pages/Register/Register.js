@@ -61,18 +61,18 @@ const Register = () => {
 
                     <div className="form-control">
                         <label className="label">Photo Url</label>
-                        <input {...register("photoUrl")} type="text" placeholder="Photo Url" className="input input-bordered" />
+                        <input {...register("photoUrl")} type="text" placeholder="Photo Url (optional)" className="input input-bordered" />
                     </div>
 
                     <div className="form-control">
                         <label className="label">Email</label>
-                        <input {...register("email", { required: "email required" })} type="text" placeholder="email" className="input input-bordered" />
+                        <input {...register("email", { required: "email required" })} type="email" placeholder="email" className="input input-bordered" />
                         {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                     </div>
 
                     <div className="form-control">
                         <label className="label">Password</label>
-                        <input {...register("password", { required: "password field required" })} type="text" placeholder="password" className="input input-bordered" />
+                        <input {...register("password", { required: "password field required" })} type="password" placeholder="password" className="input input-bordered" />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
 
