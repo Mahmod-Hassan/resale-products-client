@@ -3,14 +3,23 @@ import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Register = () => {
     const { createUser, updateUser } = useContext(AuthContext);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [error, setError] = useState('');
     const navigate = useNavigate();
+    const [userEmail, setUserEmail] = useState('');
+    const [token] = useToken(userEmail);
+    if (token) {
+        navigate('/');
+    }
+
+    // registration form event handler start
     const handleRegister = data => {
-        const { email, password, name, photoUrl } = data;
+        const { name, email, password, photoUrl, user_type } = data;
+        console.log(data);
         if (!/[A-Z]/.test(password)) {
             setError('at least one uppercase');
             return;
@@ -25,31 +34,51 @@ const Register = () => {
         }
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
+                const user = result.user;
+                console.log(user);
                 const userInfo = {
                     displayName: name,
                     photoUrl: photoUrl,
                 }
                 updateUser(userInfo)
-                    .then(result => {
-                        console.log(result.user)
-                        setError('');
-                        navigate('/');
+                    .then(() => {
+                        savedUserToDatabase(name, email, user_type)
                     })
                     .catch(err => {
                         console.log(err);
                         toast.error(err.message);
                     })
-                toast.success('Congratulations registration Successful')
             })
             .catch(err => {
                 console.log(err);
                 toast.error(err.message);
             })
     }
+    // registration form event handler end
+
+    const savedUserToDatabase = (name, email, user_type) => {
+        const user = { name, email, user_type }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    setUserEmail(email)
+                    setError('');
+                    toast.success('user created successfully')
+                }
+
+            })
+    }
+
     return (
         <div>
-            <div className='md:w-1/2 mx-auto border-4 border-secondary  p-5'>
+            <div className='sm:w-4/5 md:w-2/3 lg:w-1/2 mx-auto border-4 border-secondary  p-5'>
                 <h2 className="text-4xl text-secondary font-bold text-center">Register Now</h2>
                 <form onSubmit={handleSubmit(handleRegister)}>
 
@@ -62,6 +91,14 @@ const Register = () => {
                     <div className="form-control">
                         <label className="label">Photo Url</label>
                         <input {...register("photoUrl")} type="text" placeholder="Photo Url (optional)" className="input input-bordered" />
+                    </div>
+
+                    <div className="form-control">
+                        <label className="label">Buyer or Seller</label>
+                        <select {...register("user_type")} className="select select-bordered w-full">
+                            <option>Buyer</option>
+                            <option>Seller</option>
+                        </select>
                     </div>
 
                     <div className="form-control">

@@ -16,6 +16,7 @@ const Categories = () => {
             <h2 className="text-4xl text-primary font-bold text-center my-10">All Categories</h2>
             <div className='flex justify-evenly'>
                 {
+                    categories.length &&
                     categories.map(category => <Link
                         key={category.id}
                         to={`/category/${category.id}`}

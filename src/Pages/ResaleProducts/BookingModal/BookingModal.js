@@ -7,7 +7,7 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 const BookingModal = ({ product, setResaleProduct }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext);
-    const { product_name, resale_price } = product;
+    const { product_name, resale_price, img } = product;
 
     const handleBookingModal = data => {
         if (!(/(\+88)?-?01[0-9]\d{8}/g).test(data.number)) {
@@ -25,8 +25,9 @@ const BookingModal = ({ product, setResaleProduct }) => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                toast.success(`${user?.displayName} you booked successfylly`)
+                if (data.acknowledged) {
+                    toast.success(`${user?.displayName} you booked successfylly`)
+                }
             })
 
     }
@@ -58,6 +59,11 @@ const BookingModal = ({ product, setResaleProduct }) => {
                             <div className="form-control">
                                 <label className='text-sm'>Price</label>
                                 <input type="text"  {...register("price")} defaultValue={resale_price} readOnly className="input input-bordered" />
+                            </div>
+
+                            <div className="form-control">
+                                <label className='text-sm'>photo url</label>
+                                <input type="text"  {...register("photoUrl")} defaultValue={img} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">

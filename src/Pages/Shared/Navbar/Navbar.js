@@ -4,6 +4,7 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    console.log(user);
     const handleLogout = () => {
         logOut();
     }
@@ -16,7 +17,7 @@ const Navbar = () => {
                     <option>Buyer</option>
                     <option>seller</option>
                 </select>
-                <Link to='/dashboard'>Dashboard</Link>
+                <Link to='/dashboard' className='font-semibold mr-4 hover:text-red-500'>Dashboard</Link>
             </>
         }
     </>
@@ -29,14 +30,14 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </label>
                         <ul tabIndex={1} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                            {routes}
+                            <li>{routes}</li>
                         </ul>
                     </div>
                     <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal p-0">
-                        <li>{routes}</li>
+                    <ul className="menu menu-horizontal p-0 items-center">
+                        {routes}
                     </ul>
                 </div>
 
@@ -44,8 +45,9 @@ const Navbar = () => {
                     {
                         user?.uid ?
                             <>
+                                <span>{user?.email}</span>
+                                <button onClick={handleLogout} className="btn btn-outline btn-error btn-xs sm:btn-sm md:btn-md rounded mx-4">Logout</button>
                                 <img src={user?.photoUrl} alt="" />
-                                <button onClick={handleLogout} className="btn btn-outline btn-error btn-xs sm:btn-sm md:btn-md rounded">Logout</button>
                             </>
                             :
                             <>

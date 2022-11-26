@@ -7,7 +7,9 @@ const MyOrders = () => {
     const { data: orders = [] } = useQuery({
         queryKey: ['/orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`);
+            const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+                headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` }
+            });
             const data = await res.json();
             return data;
         }
@@ -19,20 +21,29 @@ const MyOrders = () => {
                 <table className="table w-full">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>No.</th>
                             <th>Product</th>
-                            <th>Email</th>
-                            <th>Buyer Name</th>
+                            <th>Title</th>
+                            <th>Price</th>
+                            <th>Payment</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            orders.map((order, idx) => <tr className="hover">
-                                <th>{idx + 1}</th>
-                                <td>{order.product_name}</td>
-                                <td>{order.email}</td>
-                                <td>{order.buyer_name}</td>
-                            </tr>)
+                            orders.length > 0
+                                ?
+                                orders.map((order, idx) => <tr
+                                    key={idx}
+                                >
+                                    <th>{idx + 1}</th>
+                                    <td><img className='w-20 h-16' src={order.photoUrl}></img></td>
+                                    <td>{order.product_name}</td>
+                                    <td>{order.price}</td>
+                                    <button className='btn btn-outline w-full mt-4'>Pay</button>
+                                </tr>)
+                                :
+                                <tr className='text-center text-xl text-primary'>please order something</tr>
+
                         }
                     </tbody>
                 </table>

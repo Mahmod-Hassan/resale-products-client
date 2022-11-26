@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
+import useToken from '../../hooks/useToken';
 
 const Login = () => {
     const { signIn, googleSignIn } = useContext(AuthContext);
@@ -10,29 +11,42 @@ const Login = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
+    const [userEmail, setUserEmail] = useState('');
+    const [token] = useToken(userEmail);
+    if (token) {
+        navigate(from, { replace: true });
+    }
+
+
+    // login form evnet handler start
     const handleLogin = data => {
         const { email, password } = data;
         signIn(email, password)
             .then(result => {
                 console.log(result.user);
-                toast.success('successfully logged In')
-                navigate(from, { replace: true });
+                toast.success('successfully logged In');
+                setUserEmail(email);
             })
             .catch(err => {
                 toast.error(err.message);
             })
     }
+    // login form evnet handler end
 
+    // google signin method start
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
-                toast.success('sign in with google successful')
+                toast.success('Google sign in successful')
                 navigate(from, { replace: true });
             })
             .catch(err => {
                 toast.error(err.message);
             })
     }
+    // google sign in method end
+
+
     return (
         <div>
             <div className='md:w-1/2 mx-auto border-4 border-primary mt-5 p-5'>
