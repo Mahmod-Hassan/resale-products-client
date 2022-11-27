@@ -12,6 +12,7 @@ import Register from '../../Pages/Register/Register';
 import GetProductsByCategoryId from '../../Pages/ResaleProducts/GetProductsByCategoryId/GetProductsByCategoryId';
 import AdminRoute from '../AdminRoute/AdminRoute';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
+import SellerRoute from '../SellerRoute/SellerRoute';
 
 
 
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/add-product',
-                element: <PrivateRoute><AddProduct></AddProduct></PrivateRoute>
+                element: <SellerRoute><AddProduct></AddProduct></SellerRoute>
             },
         ]
     },
