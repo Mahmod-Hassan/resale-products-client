@@ -1,18 +1,21 @@
 
 import React, { useEffect, useState } from 'react';
 
+
 const AllBuyers = () => {
+
     const [buyers, setBuyers] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/users/buyers?type=Buyer')
+        fetch('http://localhost:5000/all-buyers?type=Buyer')
             .then(res => res.json())
             .then(data => {
                 setBuyers(data)
             })
     }, [])
+
     return (
         <div className='m-4'>
-            <h2 className="text-2xl">All Buyers</h2>
+            <h2 className="text-2xl text-center text-error font-bold mb-4">All Buyers</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>

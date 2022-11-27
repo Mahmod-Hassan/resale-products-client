@@ -1,24 +1,31 @@
-import React, { useContext } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log(user);
+
+    const { data: userType } = useQuery({
+        queryKey: ['users', user?.email],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/users?email=${user?.email}`);
+            const data = await res.json();
+            return data.user_type;
+        }
+    })
+
     const handleLogout = () => {
         logOut();
     }
     const routes = <>
         <Link to='/' className='font-semibold mr-4 hover:text-red-500'>Home</Link>
         {
-            user?.uid &&
-            <>
-                <select className="select select-bordered w-28 sm:my-4 md:m-0 md:mr-4">
-                    <option>Buyer</option>
-                    <option>seller</option>
-                </select>
-                <Link to='/dashboard' className='font-semibold mr-4 hover:text-red-500'>Dashboard</Link>
-            </>
+            user?.uid && <Link to='/dashboard' className='font-semibold mr-4 hover:text-red-500'>Dashboard</Link>
+        }
+        {
+            userType === 'Seller' && <Link to='/add-product' className='font-semibold mr-4 hover:text-red-500'>AddAProduct</Link>
         }
     </>
     return (
@@ -45,8 +52,8 @@ const Navbar = () => {
                     {
                         user?.uid ?
                             <>
-                                <span>{user?.email}</span>
-                                <button onClick={handleLogout} className="btn btn-outline btn-error btn-xs sm:btn-sm md:btn-md rounded mx-4">Logout</button>
+                                <span>{user?.email} </span> <button className='btn sm:btn-sm mx-4'>{userType}</button>
+                                <button onClick={handleLogout} className="btn btn-outline btn-error btn-xs sm:btn-sm md:btn-md rounded">Logout</button>
                                 <img src={user?.photoUrl} alt="" />
                             </>
                             :

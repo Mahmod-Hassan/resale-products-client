@@ -7,7 +7,7 @@ const MyOrders = () => {
     const { data: orders = [] } = useQuery({
         queryKey: ['/orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+            const res = await fetch(`http://localhost:5000/my-orders?email=${user?.email}`, {
                 headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` }
             });
             const data = await res.json();
@@ -16,7 +16,7 @@ const MyOrders = () => {
     })
     return (
         <div className='m-4'>
-            <h2 className="text-2xl">My Orders</h2>
+            <h2 className="text-2xl text-center mb-4 text-primary font-bold">My Orders</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>

@@ -23,7 +23,6 @@ const Login = () => {
         const { email, password } = data;
         signIn(email, password)
             .then(result => {
-                console.log(result.user);
                 toast.success('successfully logged In');
                 setUserEmail(email);
             })
@@ -37,8 +36,9 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         googleSignIn()
             .then(result => {
-                toast.success('Google sign in successful')
-                navigate(from, { replace: true });
+                const user = result.user;
+                setUserEmail(user?.email);
+                savedUserToDatabase(user?.displayName, user?.email)
             })
             .catch(err => {
                 toast.error(err.message);
@@ -46,7 +46,23 @@ const Login = () => {
     }
     // google sign in method end
 
-
+    const savedUserToDatabase = (name, email, user_type) => {
+        const user = { name, email, user_type: 'Buyer' }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    setUserEmail(email)
+                    toast.success('Google sign in successful')
+                }
+            })
+    }
     return (
         <div>
             <div className='md:w-1/2 mx-auto border-4 border-primary mt-5 p-5'>
@@ -71,7 +87,7 @@ const Login = () => {
 
                     <button className='btn btn-primary mt-4 w-full' type="submit">Login</button>
                 </form>
-                <p className='text-sm mt-10 mb-5'>New to this website <Link to='/register' className='text-blue-500 underline hover:underline-offset-8 font-bold'>please register</Link></p>
+                <p className='text-sm mt-10 mb-5'>New to this website </p><Link to='/register' className='text-blue-500 underline hover:underline-offset-8 font-bold'>please register</Link>
 
                 <button onClick={handleGoogleSignIn} className="btn btn-outline btn-white w-full">SignIn With Google</button>
             </div>

@@ -38,7 +38,7 @@ const Register = () => {
                 console.log(user);
                 const userInfo = {
                     displayName: name,
-                    photoUrl: photoUrl,
+                    photoUrl,
                 }
                 updateUser(userInfo)
                     .then(() => {
@@ -56,6 +56,7 @@ const Register = () => {
     }
     // registration form event handler end
 
+    // saved user to database by this function
     const savedUserToDatabase = (name, email, user_type) => {
         const user = { name, email, user_type }
         fetch('http://localhost:5000/users', {
@@ -72,7 +73,6 @@ const Register = () => {
                     setError('');
                     toast.success('user created successfully')
                 }
-
             })
     }
 
