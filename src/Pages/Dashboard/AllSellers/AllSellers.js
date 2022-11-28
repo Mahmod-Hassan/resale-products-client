@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AllSellers = () => {
-    const { deleteAUser } = useContext(AuthContext);
-    const { data: sellers = [], refetch, isLoading } = useQuery({
+
+    const { data: sellers = [], refetch } = useQuery({
         queryKey: ['all-sellers'],
         queryFn: async () => {
             const res = await fetch('http://localhost:5000/all-sellers?type=seller');
@@ -40,11 +40,6 @@ const AllSellers = () => {
                 .then(data => {
                     if (data.deletedCount > 0) {
                         refetch();
-                        deleteAUser()
-                            .then(result => {
-                                console.log(result.user);
-                            })
-                            .catch(err => toast.error(err.message))
                     }
 
 
@@ -63,7 +58,6 @@ const AllSellers = () => {
             .then(data => {
                 console.log(data);
                 refetch()
-                isLoading(false);
             })
     }
     return (
@@ -98,12 +92,12 @@ const AllSellers = () => {
                                             :
                                             <button onClick={() => handleMakeAdmin(seller._id)} className='btn btn-sm'>Make Admin</button>
                                     }</td>
-                                    <td><button onClick={() => handleSellerDelete(seller?._id)} className='btn btn-error'>Delete</button></td>
+                                    <td><button onClick={() => handleSellerDelete(seller?._id)} className='btn btn-error btn-sm'>Delete</button></td>
                                     {
                                         seller?.verified === true ?
-                                            <td><button className='btn btn-disabled'>Verified</button></td>
+                                            <td><button className='btn btn-disabled btn-sm'>Verified</button></td>
                                             :
-                                            <td><button onClick={() => verifySellerHandler(seller?._id)} className='btn btn-accent'>Verify</button></td>
+                                            <td><button onClick={() => verifySellerHandler(seller?._id)} className='btn btn-accent btn-sm'>Verify</button></td>
                                     }
                                 </tr>)
                                 :

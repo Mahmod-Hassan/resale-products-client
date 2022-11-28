@@ -12,12 +12,13 @@ const Navbar = () => {
             .then(data => setUserType(data?.user_type))
     }, [user?.email]);
 
-
     const handleLogout = () => {
         logOut();
     }
+
     const routes = <>
         <Link to='/' className='font-semibold mr-4 hover:text-red-500'>Home</Link>
+        <Link to='/blogs' className='font-semibold mr-4 hover:text-red-500'>Blogs</Link>
         {
             user?.uid && <Link to='/dashboard' className='font-semibold mr-4 hover:text-red-500'>Dashboard</Link>
         }
@@ -25,6 +26,8 @@ const Navbar = () => {
             userType === 'seller' && <Link to='/add-product' className='font-semibold mr-4 hover:text-red-500'>AddAProduct</Link>
         }
     </>
+
+
     return (
         <div>
             <div className="navbar border bg-base-300">
@@ -37,7 +40,7 @@ const Navbar = () => {
                             <li>{routes}</li>
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+                    <Link to='/' className='btn btn-ghost text-xl'>Mobile Bazar</Link>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal p-0 items-center">

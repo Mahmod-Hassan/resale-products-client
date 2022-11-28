@@ -6,8 +6,6 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AllBuyers = () => {
 
-    const { deleteAUser } = useContext(AuthContext);
-
     const [buyers, setBuyers] = useState([]);
 
     useEffect(() => {
@@ -26,15 +24,11 @@ const AllBuyers = () => {
             })
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data);
                     if (data.deletedCount > 0) {
                         toast.success('deleted successfully');
                         const remainingBuyers = buyers.filter(buyer => buyer._id !== id);
                         setBuyers(remainingBuyers);
-                        deleteAUser()
-                            .then(result => {
-                                console.log(result.user);
-                            })
-                            .catch(err => toast.error(err.message))
                     }
                 })
         }
@@ -63,7 +57,7 @@ const AllBuyers = () => {
                                     <th>{idx + 1}</th>
                                     <td>{buyer.name}</td>
                                     <td>{buyer.email}</td>
-                                    <td><button onClick={() => handleBuyerDelete(buyer?._id)} className='btn btn-error'>Delete</button></td>
+                                    <td><button onClick={() => handleBuyerDelete(buyer?._id)} className='btn btn-error btn-sm'>Delete</button></td>
                                 </tr>)
                                 :
                                 <tr className='text-center text-xl text-primary'>No Buyer Found</tr>
