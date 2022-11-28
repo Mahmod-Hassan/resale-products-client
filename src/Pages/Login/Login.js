@@ -46,10 +46,10 @@ const Login = () => {
     }
     // google sign in method end
 
-    const savedUserToDatabase = (name, email, user_type) => {
-        const user = { name, email, user_type: 'Buyer' }
-        fetch('http://localhost:5000/users', {
-            method: 'POST',
+    const savedUserToDatabase = (name, email) => {
+        const user = { name, email, user_type: 'buyer' }
+        fetch(`http://localhost:5000/users?email=${email}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },

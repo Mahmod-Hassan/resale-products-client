@@ -34,8 +34,6 @@ const Register = () => {
         }
         createUser(email, password)
             .then(result => {
-                const user = result.user;
-                console.log(user);
                 const userInfo = {
                     displayName: name,
                     photoUrl,
@@ -59,8 +57,8 @@ const Register = () => {
     // saved user to database by this function
     const savedUserToDatabase = (name, email, user_type) => {
         const user = { name, email, user_type }
-        fetch('http://localhost:5000/users', {
-            method: 'POST',
+        fetch(`http://localhost:5000/users?email=${email}`, {
+            method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
