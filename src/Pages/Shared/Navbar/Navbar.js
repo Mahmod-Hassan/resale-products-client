@@ -1,20 +1,17 @@
 
-import { useQuery } from '@tanstack/react-query';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
+    const [userType, setUserType] = useState('');
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user?.email}`)
+            .then(res => res.json())
+            .then(data => setUserType(data?.user_type))
+    }, [user?.email]);
 
-    const { data: userType } = useQuery({
-        queryKey: ['users', user?.email],
-        queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/users?email=${user?.email}`);
-            const data = await res.json();
-            return data.user_type;
-        }
-    })
 
     const handleLogout = () => {
         logOut();
@@ -25,7 +22,7 @@ const Navbar = () => {
             user?.uid && <Link to='/dashboard' className='font-semibold mr-4 hover:text-red-500'>Dashboard</Link>
         }
         {
-            userType === 'Seller' && <Link to='/add-product' className='font-semibold mr-4 hover:text-red-500'>AddAProduct</Link>
+            userType === 'seller' && <Link to='/add-product' className='font-semibold mr-4 hover:text-red-500'>AddAProduct</Link>
         }
     </>
     return (
@@ -52,7 +49,7 @@ const Navbar = () => {
                     {
                         user?.uid ?
                             <>
-                                <span>{user?.email} </span> <button className='btn sm:btn-sm mx-4'>{userType}</button>
+                                <span className='max-[672px]:invisible'>{user?.email} </span> <button className='btn sm:btn-sm mx-4 max-[672px]:invisible'>{userType}</button>
                                 <button onClick={handleLogout} className="btn btn-outline btn-error btn-xs sm:btn-sm md:btn-md rounded">Logout</button>
                                 <img src={user?.photoUrl} alt="" />
                             </>

@@ -1,13 +1,15 @@
 
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AllSellers = () => {
-    const { data: sellers = [], refetch } = useQuery({
-        queryKey: ['users', 'sellers'],
+    const { deleteAUser } = useContext(AuthContext);
+    const { data: sellers = [], refetch, isLoading } = useQuery({
+        queryKey: ['all-sellers'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/all-sellers?type=Seller');
+            const res = await fetch('http://localhost:5000/all-sellers?type=seller');
             const data = await res.json();
             return data;
         }
@@ -25,6 +27,43 @@ const AllSellers = () => {
                     toast.success('make admin successfully');
                     refetch();
                 }
+            })
+    }
+
+    const handleSellerDelete = id => {
+        const proceed = window.confirm('are u sure want to DELETE');
+        if (proceed) {
+            fetch(`http://localhost:5000/delete-user/${id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        refetch();
+                        deleteAUser()
+                            .then(result => {
+                                console.log(result.user);
+                            })
+                            .catch(err => toast.error(err.message))
+                    }
+
+
+                })
+        }
+    }
+
+    const verifySellerHandler = id => {
+        fetch(`http://localhost:5000/users/seller/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: ` bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                refetch()
+                isLoading(false);
             })
     }
     return (
@@ -59,8 +98,13 @@ const AllSellers = () => {
                                             :
                                             <button onClick={() => handleMakeAdmin(seller._id)} className='btn btn-sm'>Make Admin</button>
                                     }</td>
-                                    <td><button className='btn btn-error'>Delete</button></td>
-                                    <td><button className='btn btn-accent'>Verify</button></td>
+                                    <td><button onClick={() => handleSellerDelete(seller?._id)} className='btn btn-error'>Delete</button></td>
+                                    {
+                                        seller?.verified === true ?
+                                            <td><button className='btn btn-disabled'>Verified</button></td>
+                                            :
+                                            <td><button onClick={() => verifySellerHandler(seller?._id)} className='btn btn-accent'>Verify</button></td>
+                                    }
                                 </tr>)
                                 :
                                 <tr className='text-center text-xl text-primary'>No Seller Found</tr>

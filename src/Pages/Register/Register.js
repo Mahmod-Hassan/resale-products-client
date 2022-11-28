@@ -96,8 +96,8 @@ const Register = () => {
                     <div className="form-control">
                         <label className="label">Buyer or Seller</label>
                         <select {...register("user_type")} className="select select-bordered w-full">
-                            <option>Buyer</option>
-                            <option>Seller</option>
+                            <option>buyer</option>
+                            <option>seller</option>
                         </select>
                     </div>
 

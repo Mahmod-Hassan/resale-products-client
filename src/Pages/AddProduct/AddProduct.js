@@ -8,22 +8,26 @@ const AddProduct = () => {
         const image = form.image.value;
         const sellerName = form.seller_name.value;
         const productName = form.product_name.value;
-        const price = form.price.value;
+        const orignialPrice = form.originalPrice.value;
+        const resalePrice = form.resalePrice.value;
         const condition = form.condition.value;
         const category = form.category.value;
         const description = form.description.value;
         const using = form.using.value;
+        const date = form.date.value;
         const location = form.location.value;
 
         const productInfo = {
             image,
             sellerName,
             productName,
-            price,
+            orignialPrice,
+            resalePrice,
             condition,
             category,
             description,
             using,
+            date,
             location
         }
 
@@ -45,7 +49,7 @@ const AddProduct = () => {
     return (
         <div className='my-10'>
             <h2 className="text-2xl text-center mb-4 text-primary font-bold">Add Your Product</h2>
-            <div className='sm:w-4/5 md:w-3/5 lg:w-1/2 mx-auto border shadow-2xl p-5'>
+            <div className='lg-flex shadow-2xl p-5'>
                 <form onSubmit={handleAddProduct} className='grid lg:grid-cols-2 gap-5'>
                     {/* product photo input field */}
                     <input name="image" placeholder='photo-url' type="text" className="input input-bordered" required />
@@ -56,8 +60,11 @@ const AddProduct = () => {
                     {/* product name input field */}
                     <input name="product_name" placeholder='Product Name' type="text" className="input input-bordered" required />
 
-                    {/* price input field */}
-                    <input name="price" placeholder='Price' type="number" className="input input-bordered" required />
+                    {/* original price input field */}
+                    <input name="originalPrice" placeholder='Original Price' type="number" className="input input-bordered" required />
+
+                    {/* resale price input field */}
+                    <input name="resalePrice" placeholder='Resale Price' type="number" className="input input-bordered" required />
 
                     {/* product condition selector field */}
                     <select name='condition' className="select select-bordered w-full">
@@ -78,6 +85,9 @@ const AddProduct = () => {
 
                     {/* product using duration input field */}
                     <input name="location" placeholder='location' type="text" className="input input-bordered" required />
+
+                    {/* product posted date input field */}
+                    <input name="date" placeholder='todays date' type="date" className="input input-bordered" required />
 
                     {/* description about product input field */}
                     <textarea name="description" className="textarea textarea-bordered" placeholder="write about your product..."></textarea>

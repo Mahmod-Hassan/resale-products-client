@@ -7,7 +7,7 @@ import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 const BookingModal = ({ product, setResaleProduct }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext);
-    const { product_name, resale_price, img } = product;
+    const { productName, resalePrice, image } = product;
 
     const handleBookingModal = data => {
         if (!(/(\+88)?-?01[0-9]\d{8}/g).test(data.number)) {
@@ -53,17 +53,17 @@ const BookingModal = ({ product, setResaleProduct }) => {
 
                             <div className="form-control">
                                 <label className='text-sm'>Product Name</label>
-                                <input type="text" {...register("product_name")} defaultValue={product_name} readOnly className="input input-bordered" />
+                                <input type="text" {...register("product_name")} defaultValue={productName} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">
                                 <label className='text-sm'>Price</label>
-                                <input type="text"  {...register("price")} defaultValue={resale_price} readOnly className="input input-bordered" />
+                                <input type="text"  {...register("price")} defaultValue={resalePrice} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">
                                 <label className='text-sm'>photo url</label>
-                                <input type="text"  {...register("photoUrl")} defaultValue={img} readOnly className="input input-bordered" />
+                                <input type="text"  {...register("photoUrl")} defaultValue={image} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">
