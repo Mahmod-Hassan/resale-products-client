@@ -5,7 +5,8 @@ import { useForm } from "react-hook-form";
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const BookingModal = ({ product, setResaleProduct }) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+
+    const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
     const { productName, resalePrice, image } = product;
 
@@ -14,7 +15,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
             toast.error('please input valid number')
             return;
         }
-        console.log(data);
+
         setResaleProduct(null);
         fetch('http://localhost:5000/orders', {
             method: 'POST',
@@ -24,8 +25,19 @@ const BookingModal = ({ product, setResaleProduct }) => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
+            .then(data => { })
+
+        fetch(`http://localhost:5000/product/${product?._id}`, {
+            method: 'PUT',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        })
+            .then(res => res.json())
             .then(data => {
-                if (data.acknowledged) {
+                if (data?.modifiedCount > 0) {
+                    window.location.reload();
                     toast.success(`${user?.displayName} you booked successfylly`)
                 }
             })
@@ -43,7 +55,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
                         <div className='grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5'>
                             <div className="form-control">
                                 <label className='text-sm'>Your Name</label>
-                                <input type="text"  {...register("buyer_name")} defaultValue={user?.displayName} readOnly className="input input-bordered" />
+                                <input type="text"  {...register("buyerName")} defaultValue={user?.displayName} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">
@@ -53,7 +65,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
 
                             <div className="form-control">
                                 <label className='text-sm'>Product Name</label>
-                                <input type="text" {...register("product_name")} defaultValue={productName} readOnly className="input input-bordered" />
+                                <input type="text" {...register("productName")} defaultValue={productName} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">

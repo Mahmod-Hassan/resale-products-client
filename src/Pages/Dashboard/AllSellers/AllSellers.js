@@ -97,7 +97,7 @@ const AllSellers = () => {
                                         seller?.verified === true ?
                                             <td><button className='btn btn-disabled btn-sm'>Verified</button></td>
                                             :
-                                            <td><button onClick={() => verifySellerHandler(seller?._id)} className='btn btn-accent btn-sm'>Verify</button></td>
+                                            <td><button onClick={() => verifySellerHandler(seller?._id)} className='btn btn-accent btn-sm'>Unverify</button></td>
                                     }
                                 </tr>)
                                 :

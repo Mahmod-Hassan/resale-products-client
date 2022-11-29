@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 
 const AddProduct = () => {
+    const { user } = useContext(AuthContext);
     const handleAddProduct = event => {
         event.preventDefault();
         const form = event.target;
+        const email = form.email.value;
         const image = form.image.value;
         const sellerName = form.seller_name.value;
         const productName = form.product_name.value;
@@ -28,7 +31,8 @@ const AddProduct = () => {
             description,
             using,
             date,
-            location
+            location,
+            email
         }
 
         fetch('http://localhost:5000/add-product', {
@@ -51,6 +55,9 @@ const AddProduct = () => {
             <h2 className="text-2xl text-center mb-4 text-primary font-bold">Add Your Product</h2>
             <div className='lg-flex shadow-2xl p-5'>
                 <form onSubmit={handleAddProduct} className='grid lg:grid-cols-2 gap-5'>
+                    {/* product photo input field */}
+                    <input name="email" value={user?.email} type="text" className="input input-bordered" readOnly />
+
                     {/* product photo input field */}
                     <input name="image" placeholder='photo-url' type="text" className="input input-bordered" required />
 

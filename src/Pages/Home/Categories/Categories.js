@@ -14,16 +14,18 @@ const Categories = () => {
     const category = categories.map(category => category.category);
 
     return (
-        <div>
+        <div className='text-center'>
             <h2 className="text-4xl text-primary font-bold text-center my-10">All Categories</h2>
-            <div className='flex justify-evenly'>
+            <div className='md:flex md:justify-evenly'>
                 {
-                    category?.length &&
-                    [...new Set(category)].map((categoryName, idx) => <Link
-                        key={idx}
-                        to={`/category/${categoryName}`}
-                    ><button className='btn btn-wide'>{categoryName}</button></Link>
-                    )
+                    category?.length ?
+                        [...new Set(category)].map((categoryName, idx) => <Link
+                            key={idx}
+                            to={`/category/${categoryName}`}
+                        ><button className='btn btn-wide mb-4'>{categoryName}</button></Link>
+                        )
+                        :
+                        <p className='text-xl font-normal text-white bg-blue-800 p-5'>there is no category found</p>
                 }
             </div>
 

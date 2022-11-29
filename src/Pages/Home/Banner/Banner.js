@@ -43,7 +43,7 @@ const Banner = () => {
                         </div>
 
                         <div>
-                            <img src={item.img} alt="" className='h-96' />
+                            <img src={item.img} alt="" className='h-48 lg:h-96' />
                         </div>
                     </div>
 

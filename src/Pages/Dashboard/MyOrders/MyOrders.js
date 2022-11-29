@@ -1,19 +1,31 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
-    const { data: orders = [] } = useQuery({
-        queryKey: ['/orders', user?.email],
+    const { data: orders = [], refetch } = useQuery({
+        queryKey: ['my-orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/my-orders?email=${user?.email}`, {
-                headers: { authorization: `bearer ${localStorage.getItem('accessToken')}` }
-            });
+            const res = await fetch(`http://localhost:5000/my-orders?email=${user?.email}`);
             const data = await res.json();
             return data;
         }
     })
+
+    const handleOrderDelete = id => {
+        fetch(`http://localhost:5000/delete-order/${id}`, {
+            method: 'DELETE'
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    toast.success('deleted successfully');
+                    refetch();
+                }
+            })
+    }
     return (
         <div className='m-4'>
             <h2 className="text-2xl text-center mb-4 text-primary font-bold">My Orders</h2>
@@ -37,9 +49,10 @@ const MyOrders = () => {
                                 >
                                     <th>{idx + 1}</th>
                                     <td><img className='w-20 h-16' src={order.photoUrl}></img></td>
-                                    <td>{order.product_name}</td>
+                                    <td>{order.productName}</td>
                                     <td>{order.price}</td>
-                                    <button className='btn btn-outline w-full mt-4'>Pay</button>
+                                    <button onClick={() => handleOrderDelete(order?._id)} className='btn btn-error btn-sm w-full mt-4'>Delete</button>
+                                    <button className='btn btn-outline btn-sm w-full mt-4'>Pay</button>
                                 </tr>)
                                 :
                                 <tr className='text-center text-xl text-primary'>please order something</tr>
