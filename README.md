@@ -1,7 +1,7 @@
 # feature of my Resale-Product website
 
 ### package install
-* react, react-router-dom, tailwind css, daisyUI, react-query, firebase, react-hot-toast, axios, react-hooks-form, jwt
+* react, react-router-dom, tailwind css, daisyUI, react-query, firebase, react-hot-toast, axios, react-hooks-form, jwt token etc
 
 ### normal user /buyer
 * normal user can buy any products and can delete his/her product
@@ -10,7 +10,7 @@
 * seller can add products and also deler his/her product. 
 
 ### admin 
-* * admin can delete any buyer and seller. admin can verify seller
+* admin can delete any buyer and seller. admin can verify seller
 
 ### section
 * home page, dashboard page, login and register page

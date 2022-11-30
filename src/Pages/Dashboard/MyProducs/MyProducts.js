@@ -8,10 +8,7 @@ const MyProducts = () => {
     const [myProducts, setMyProducts] = useState([]);
     useEffect(() => {
         axios.get(`http://localhost:5000/my-products?email=${user?.email}`)
-            .then(data => {
-                console.log(data);
-                setMyProducts(data.data)
-            })
+            .then(data => { setMyProducts(data?.data) })
             .catch(error => console.log(error))
     }, [user?.email])
     const handleDeleteProduct = id => {

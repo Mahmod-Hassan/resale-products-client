@@ -22,7 +22,7 @@ const Blogs = () => {
     return (
         <div className='mx-auto'>
             {
-                blogs.map(blog => <div className='shadow-lg p-5 w-2/3 mx-auto'>
+                blogs.map((blog, idx) => <div key={idx} className='shadow-lg p-5 w-2/3 mx-auto'>
                     <h2 className='text-3xl font-bold'>{blog.question}</h2>
                     <p className='text-xl'>{blog.answer}</p>
                 </div>

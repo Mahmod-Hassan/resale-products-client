@@ -8,7 +8,11 @@ const Navbar = () => {
     const [userType, setUserType] = useState('');
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users/${user?.email}`)
+            fetch(`http://localhost:5000/users/${user?.email}`, {
+                headers: {
+                    authorization: `bearer ${localStorage.getItem('accessToken')}`
+                }
+            })
                 .then(res => res.json())
                 .then(data => setUserType(data?.user_type)
                 )
@@ -17,7 +21,9 @@ const Navbar = () => {
     }, [user?.email]);
 
     const handleLogout = () => {
-        logOut();
+        logOut()
+            .then(res => { })
+            .catch(error => console.log(error))
     }
 
     const routes = <>
