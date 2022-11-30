@@ -7,12 +7,12 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
     const [myProducts, setMyProducts] = useState([]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/my-products?email=${user?.email}`)
+        axios.get(`https://y-livid-theta.vercel.app/my-products?email=${user?.email}`)
             .then(data => { setMyProducts(data?.data) })
             .catch(error => console.log(error))
     }, [user?.email])
     const handleDeleteProduct = id => {
-        fetch(`http://localhost:5000/delete-product/${id}`, {
+        fetch(`https://y-livid-theta.vercel.app/delete-product/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -39,18 +39,16 @@ const MyProducts = () => {
                     </thead>
                     <tbody>
                         {
-                            myProducts.length > 0
-                                ?
-                                myProducts.map((product, idx) => <tr
-                                    key={product._id}
-                                >
-                                    <th>{idx + 1}</th>
-                                    <td>{product.productName}</td>
-                                    <td>{product.resalePrice}</td>
-                                    <td><button onClick={() => handleDeleteProduct(product._id)} className='btn btn-error btn-sm'>Delete</button></td>
-                                </tr>)
-                                :
-                                <tr className='text-center text-xl text-primary'>please order something</tr>
+                            myProducts.length &&
+
+                            myProducts.map((product, idx) => <tr
+                                key={product._id}
+                            >
+                                <th>{idx + 1}</th>
+                                <td>{product.productName}</td>
+                                <td>{product.resalePrice}</td>
+                                <td><button onClick={() => handleDeleteProduct(product._id)} className='btn btn-error btn-sm'>Delete</button></td>
+                            </tr>)
 
                         }
                     </tbody>

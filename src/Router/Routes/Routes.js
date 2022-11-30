@@ -34,7 +34,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:products',
                 element: <PrivateRoute><GetProductsByCategoryId></GetProductsByCategoryId></PrivateRoute>,
-                loader: async ({ params }) => await fetch(`http://localhost:5000/category-products?category=${params.products}`)
+                loader: async ({ params }) => await fetch(`https://y-livid-theta.vercel.app/category-products?category=${params.products}`)
             },
             {
                 path: '/login',
@@ -78,7 +78,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/payment/:id',
                 element: <Payment></Payment>,
-                loader: ({ params }) => fetch(`http://localhost:5000/payment-order/${params.id}`)
+                loader: ({ params }) => fetch(`https://y-livid-theta.vercel.app/payment-order/${params.id}`)
             },
         ]
     },

@@ -35,7 +35,7 @@ const AddProduct = () => {
             email
         }
 
-        fetch('http://localhost:5000/add-product', {
+        fetch('https://y-livid-theta.vercel.app/add-product', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

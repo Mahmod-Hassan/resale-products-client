@@ -15,6 +15,6 @@
 ### section
 * home page, dashboard page, login and register page
 
-## Live site : ()
+## Live site : (https://resaleproducts-dc13e.web.app/)
 ### admin email : iqura@gmail.com
 ### admin password : iqura@1

@@ -9,7 +9,7 @@ const MyOrders = () => {
     const { data: orders = [], refetch } = useQuery({
         queryKey: ['my-orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/my-orders?email=${user?.email}`, {
+            const res = await fetch(`https://y-livid-theta.vercel.app/my-orders?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -20,7 +20,7 @@ const MyOrders = () => {
     })
 
     const handleOrderDelete = id => {
-        fetch(`http://localhost:5000/delete-order/${id}`, {
+        fetch(`https://y-livid-theta.vercel.app/delete-order/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -48,27 +48,25 @@ const MyOrders = () => {
                     </thead>
                     <tbody>
                         {
-                            orders.length > 0
-                                ?
-                                orders.map((order, idx) => <tr
-                                    key={idx}
-                                >
-                                    <th>{idx + 1}</th>
-                                    <td><img className='w-20 h-16' src={order.photoUrl}></img></td>
-                                    <td>{order.productName}</td>
-                                    <td>{order.price}</td>
-                                    <td>   <button onClick={() => handleOrderDelete(order?._id)} className='btn btn-error btn-sm w-full mt-4'>Delete</button></td>
-                                    <td> {order?.paid ?
-                                        <button className='btn btn-success btn-sm w-full mt-4'>paid</button>
-                                        :
-                                        <Link to={`/dashboard/payment/${order?._id}`}>
-                                            <button className='btn btn-outline btn-sm w-full mt-4'>Pay</button>
-                                        </Link>
-                                    }</td>
+                            orders.length &&
 
-                                </tr>)
-                                :
-                                <tr className='text-center text-xl text-primary'>please order something</tr>
+                            orders.map((order, idx) => <tr
+                                key={idx}
+                            >
+                                <th>{idx + 1}</th>
+                                <td><img className='w-20 h-16' src={order.photoUrl}></img></td>
+                                <td>{order.productName}</td>
+                                <td>{order.price}</td>
+                                <td>   <button onClick={() => handleOrderDelete(order?._id)} className='btn btn-error btn-sm w-full mt-4'>Delete</button></td>
+                                <td> {order?.paid ?
+                                    <button className='btn btn-success btn-sm w-full mt-4'>paid</button>
+                                    :
+                                    <Link to={`/dashboard/payment/${order?._id}`}>
+                                        <button className='btn btn-outline btn-sm w-full mt-4'>Pay</button>
+                                    </Link>
+                                }</td>
+
+                            </tr>)
 
                         }
                     </tbody>

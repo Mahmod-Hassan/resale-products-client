@@ -8,7 +8,7 @@ const Navbar = () => {
     const [userType, setUserType] = useState('');
     useEffect(() => {
         if (user?.email) {
-            fetch(`http://localhost:5000/users/${user?.email}`, {
+            fetch(`https://y-livid-theta.vercel.app/users/${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -39,7 +39,7 @@ const Navbar = () => {
             user?.uid ?
                 <>
                     <span>{user?.email} </span> <button className='btn btn-sm text-white sm:mb-4 md:mb-0 mx-4'>{userType}</button>
-                    <button onClick={handleLogout} className="btn btn-outline btn-error  sm:btn-sm md:btn-md rounded">Logout</button>
+                    <button onClick={handleLogout} className="btn btn-outline btn-error  btn-sm md:btn-md rounded">Logout</button>
                     <img src={user?.photoUrl} alt="" />
                 </>
                 :
