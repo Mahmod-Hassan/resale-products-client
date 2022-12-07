@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -13,9 +13,11 @@ const Login = () => {
     const from = location.state?.from?.pathname || '/';
     const [userEmail, setUserEmail] = useState('');
     const [token] = useToken(userEmail);
-    if (token) {
-        navigate(from, { replace: true });
-    }
+    useEffect(() => {
+        if (token) {
+            navigate(from, { replace: true });
+        }
+    }, [token])
 
 
     // login form evnet handler start

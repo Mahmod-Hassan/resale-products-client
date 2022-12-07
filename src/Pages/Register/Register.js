@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -12,10 +12,12 @@ const Register = () => {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState('');
     const [token] = useToken(userEmail);
-    if (token) {
-        navigate('/');
-    }
 
+    useEffect(() => {
+        if (token) {
+            navigate('/');
+        }
+    }, [token])
     // registration form event handler start
     const handleRegister = data => {
         const { name, email, password, photoUrl, user_type } = data;
