@@ -17,7 +17,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
         }
 
         setResaleProduct(null);
-        fetch('http://localhost:5000/orders', {
+        fetch('https://assigntment-12-server.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -27,7 +27,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
             .then(res => res.json())
             .then(data => console.log(data))
 
-        fetch(`http://localhost:5000/product/${product?._id}`, {
+        fetch(`https://assigntment-12-server.vercel.app/product/${product?._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

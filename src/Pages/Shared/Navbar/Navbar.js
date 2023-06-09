@@ -9,7 +9,7 @@ const Navbar = () => {
     // const [userType, setUserType] = useState('');
     // useEffect(() => {
     //     if (user?.email) {
-    //         fetch(`http://localhost:5000/users/${user?.email}`, {
+    //         fetch(`https://assigntment-12-server.vercel.app/users/${user?.email}`, {
     //             headers: {
     //                 authorization: `bearer ${localStorage.getItem('accessToken')}`
     //             }

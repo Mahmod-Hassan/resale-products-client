@@ -17,7 +17,7 @@
 
 //     useEffect(() => {
 //         // Create PaymentIntent as soon as the page loads
-//         fetch("http://localhost:5000/create-payment-intent", {
+//         fetch("https://assigntment-12-server.vercel.app/create-payment-intent", {
 //             method: "POST",
 //             headers: {
 //                 "content-type": "application/json",
@@ -78,7 +78,7 @@
 //                 orderId: _id
 //             }
 
-//             fetch('http://localhost:5000/payments', {
+//             fetch('https://assigntment-12-server.vercel.app/payments', {
 //                 method: 'POST',
 //                 headers: {
 //                     'content-type': 'application/json'

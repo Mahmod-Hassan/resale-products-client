@@ -7,12 +7,12 @@ const MyProducts = () => {
     const { user } = useContext(AuthContext);
     const [myProducts, setMyProducts] = useState([]);
     useEffect(() => {
-        axios.get(`http://localhost:5000/my-products?email=${user?.email}`)
+        axios.get(`https://assigntment-12-server.vercel.app/my-products?email=${user?.email}`)
             .then(data => { setMyProducts(data?.data) })
             .catch(error => console.log(error))
     }, [user?.email])
     const handleDeleteProduct = id => {
-        fetch(`http://localhost:5000/delete-product/${id}`, {
+        fetch(`https://assigntment-12-server.vercel.app/delete-product/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
