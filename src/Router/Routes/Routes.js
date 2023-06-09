@@ -8,7 +8,6 @@ import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
 import AllSellers from '../../Pages/Dashboard/AllSellers/AllSellers';
 import MyOrders from '../../Pages/Dashboard/MyOrders/MyOrders';
 import MyProducts from '../../Pages/Dashboard/MyProducs/MyProducts';
-import Payment from '../../Pages/Dashboard/Payment/Payment';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
 import NotFound from '../../Pages/NotFound/NotFound';
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
             {
                 path: '/category/:products',
                 element: <PrivateRoute><GetProductsByCategoryId></GetProductsByCategoryId></PrivateRoute>,
-                loader: async ({ params }) => await fetch(`https://y-livid-theta.vercel.app/category-products?category=${params.products}`)
+                loader: async ({ params }) => await fetch(`http://localhost:5000/category-products?category=${params.products}`)
             },
             {
                 path: '/login',
@@ -75,11 +74,11 @@ const router = createBrowserRouter([
                 path: '/dashboard/all-sellers',
                 element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
-            {
-                path: '/dashboard/payment/:id',
-                element: <Payment></Payment>,
-                loader: ({ params }) => fetch(`https://y-livid-theta.vercel.app/payment-order/${params.id}`)
-            },
+            // {
+            //     path: '/dashboard/payment/:id',
+            //     element: <Payment></Payment>,
+            //     loader: ({ params }) => fetch(`http://localhost:5000/payment-order/${params.id}`)
+            // },
         ]
     },
     {

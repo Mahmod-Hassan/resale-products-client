@@ -17,11 +17,11 @@ const Register = () => {
         if (token) {
             navigate('/');
         }
-    }, [token])
+    }, [token,navigate])
     // registration form event handler start
     const handleRegister = data => {
         const { name, email, password, photoUrl, user_type } = data;
-        console.log(data);
+        
         if (!/[A-Z]/.test(password)) {
             setError('at least one uppercase');
             return;
@@ -38,10 +38,12 @@ const Register = () => {
             .then(result => {
                 const userInfo = {
                     displayName: name,
-                    photoUrl,
+                    photoUrl: photoUrl,
+                    user_type: user_type,
                 }
                 updateUser(userInfo)
-                    .then(() => {
+                    .then((result) => {
+                        console.log(result)
                         savedUserToDatabase(name, email, user_type)
                     })
                     .catch(err => {
@@ -59,7 +61,7 @@ const Register = () => {
     // saved user to database by this function
     const savedUserToDatabase = (name, email, user_type) => {
         const user = { name, email, user_type }
-        fetch(`https://y-livid-theta.vercel.app/users?email=${email}`, {
+        fetch(`http://localhost:5000/users?email=${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

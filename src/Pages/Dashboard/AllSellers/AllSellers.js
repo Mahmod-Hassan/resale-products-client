@@ -1,21 +1,20 @@
 
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React from 'react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const AllSellers = () => {
 
     const { data: sellers = [], refetch } = useQuery({
         queryKey: ['all-sellers'],
         queryFn: async () => {
-            const res = await fetch('https://y-livid-theta.vercel.app/all-sellers?type=seller');
+            const res = await fetch('http://localhost:5000/all-sellers?type=seller');
             const data = await res.json();
             return data;
         }
     })
     const handleMakeAdmin = id => {
-        fetch(`https://y-livid-theta.vercel.app/users/admin/${id}`, {
+        fetch(`http://localhost:5000/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `$bearer ${localStorage.getItem('accessToken')}`
@@ -33,7 +32,7 @@ const AllSellers = () => {
     const handleSellerDelete = id => {
         const proceed = window.confirm('are u sure want to DELETE');
         if (proceed) {
-            fetch(`https://y-livid-theta.vercel.app/delete-user/${id}`, {
+            fetch(`http://localhost:5000/delete-user/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -48,7 +47,7 @@ const AllSellers = () => {
     }
 
     const verifySellerHandler = id => {
-        fetch(`https://y-livid-theta.vercel.app/users/seller/${id}`, {
+        fetch(`http://localhost:5000/users/seller/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: ` bearer ${localStorage.getItem('accessToken')}`

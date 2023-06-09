@@ -1,7 +1,6 @@
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 
 const AllBuyers = () => {
@@ -9,7 +8,7 @@ const AllBuyers = () => {
     const [buyers, setBuyers] = useState([]);
 
     useEffect(() => {
-        fetch('https://y-livid-theta.vercel.app/all-buyers?type=buyer')
+        fetch('http://localhost:5000/all-buyers?type=buyer')
             .then(res => res.json())
             .then(data => {
                 setBuyers(data)
@@ -19,7 +18,7 @@ const AllBuyers = () => {
     const handleBuyerDelete = id => {
         const proceed = window.confirm('are u sure want to DELETE');
         if (proceed) {
-            fetch(`https://y-livid-theta.vercel.app/delete-user/${id}`, {
+            fetch(`http://localhost:5000/delete-user/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())

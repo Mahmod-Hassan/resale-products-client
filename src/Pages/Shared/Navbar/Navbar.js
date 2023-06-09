@@ -1,24 +1,25 @@
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const Navbar = () => {
     const { user, logOut } = useContext(AuthContext);
-    const [userType, setUserType] = useState('');
-    useEffect(() => {
-        if (user?.email) {
-            fetch(`https://y-livid-theta.vercel.app/users/${user?.email}`, {
-                headers: {
-                    authorization: `bearer ${localStorage.getItem('accessToken')}`
-                }
-            })
-                .then(res => res.json())
-                .then(data => setUserType(data?.user_type)
-                )
-        }
+    console.log(user);
+    // const [userType, setUserType] = useState('');
+    // useEffect(() => {
+    //     if (user?.email) {
+    //         fetch(`http://localhost:5000/users/${user?.email}`, {
+    //             headers: {
+    //                 authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //             }
+    //         })
+    //             .then(res => res.json())
+    //             .then(data => setUserType(data?.user_type)
+    //             )
+    //     }
 
-    }, [user?.email]);
+    // }, [user?.email]);
 
     const handleLogout = () => {
         logOut()
@@ -27,19 +28,19 @@ const Navbar = () => {
     }
 
     const routes = <>
-        <Link to='/' className='font-semibold mr-4 hover:text-red-500'>Home</Link>
-        <Link to='/blogs' className='font-semibold mr-4 hover:text-red-500'>Blogs</Link>
+        <Link to='/' className='mr-4'>Home</Link>
+        <Link to='/blogs' className='mr-4'>Blogs</Link>
         {
-            user?.uid && <Link to='/dashboard' className='font-semibold mr-4 hover:text-red-500'>Dashboard</Link>
+            user?.uid && <Link to='/dashboard' className='mr-4'>Dashboard</Link>
         }
         {
-            userType === 'seller' && <Link to='/add-product' className='font-semibold mr-4 hover:text-red-500'>AddAProduct</Link>
+            user?.user_type === 'seller' && <Link to='/add-product' className='mr-4'>AddAProduct</Link>
         }
         {
             user?.uid ?
                 <>
-                    <span>{user?.email} </span> <button className='btn btn-sm text-white sm:mb-4 md:mb-0 mx-4'>{userType}</button>
-                    <button onClick={handleLogout} className="btn btn-outline btn-error  btn-sm md:btn-md rounded">Logout</button>
+                    <span className='text-gray-600'>{user?.email} </span> <button className='btn btn-sm text-white  sm:mb-4 md:mb-0 mx-4'>{user?.user_type}</button>
+                    <span><button onClick={handleLogout} className="btn btn-primary  btn-sm md:btn-md rounded">Logout</button></span>
                     <img src={user?.photoUrl} alt="" />
                 </>
                 :
@@ -52,10 +53,10 @@ const Navbar = () => {
 
 
     return (
-        <div>
-            <div className="navbar border bg-base-300">
+        // this is navbar container
+            <div className="navbar px-20 bg-gradient-to-r from-indigo-400 to-purple-400">
 
-
+{/* this is the navbar start point this is button and hidden 3 line icon */}
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -65,21 +66,20 @@ const Navbar = () => {
                             <li className='grid gap-2'>{routes}</li>
                         </ul>
                     </div>
-                    <Link to='/' className='btn btn-ghost text-xl'>Mobile Bazar</Link>
-
+                    <Link to='/' className='text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-yellow-500'>Mobile Bazar</Link>
                 </div>
-                <div className="navbar-center hidden lg:flex">
-                    <ul className="menu menu-horizontal p-0 items-center">
+
+                {/* navbar end is here where links are include */}
+                <div className="navbar-end hidden lg:flex">
+                <ul className="p-0 flex items-center text-gray-100 font-medium">
                         {routes}
                     </ul>
-                </div>
-                <div className="navbar-end">
                     <label tabIndex={2} htmlFor="dashboard-drawer" className="btn btn-ghost lg:hidden">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                     </label>
                 </div>
             </div>
-        </div>
+     
     );
 };
 

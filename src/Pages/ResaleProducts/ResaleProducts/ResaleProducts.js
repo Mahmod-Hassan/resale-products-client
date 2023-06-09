@@ -1,6 +1,5 @@
 
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React from "react";
 
 const ResaleProducts = ({ product, setResaleProduct }) => {
 
@@ -24,7 +23,8 @@ const ResaleProducts = ({ product, setResaleProduct }) => {
                     :
                     <label
                         onClick={() => setResaleProduct(product)}
-                        htmlFor="resale-product-modal" className='btn btn-primary'>Book Now</label>
+                        htmlFor="resale-product-modal" className='btn btn-primary'>Book Now
+                        </label>
             }
 
         </div>

@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const MyOrders = () => {
@@ -9,7 +8,7 @@ const MyOrders = () => {
     const { data: orders = [], refetch } = useQuery({
         queryKey: ['my-orders', user?.email],
         queryFn: async () => {
-            const res = await fetch(`https://y-livid-theta.vercel.app/my-orders?email=${user?.email}`, {
+            const res = await fetch(`http://localhost:5000/my-orders?email=${user?.email}`, {
                 headers: {
                     authorization: `bearer ${localStorage.getItem('accessToken')}`
                 }
@@ -20,7 +19,7 @@ const MyOrders = () => {
     })
 
     const handleOrderDelete = id => {
-        fetch(`https://y-livid-theta.vercel.app/delete-order/${id}`, {
+        fetch(`http://localhost:5000/delete-order/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
@@ -54,16 +53,17 @@ const MyOrders = () => {
                                 key={idx}
                             >
                                 <th>{idx + 1}</th>
-                                <td><img className='w-20 h-16' src={order.photoUrl}></img></td>
-                                <td>{order.productName}</td>
-                                <td>{order.price}</td>
+                                <td><img className='w-20 h-16' src={order?.photoUrl} alt=""></img></td>
+                                <td>{order?.productName}</td>
+                                <td>{order?.price}</td>
                                 <td>   <button onClick={() => handleOrderDelete(order?._id)} className='btn btn-error btn-sm w-full mt-4'>Delete</button></td>
                                 <td> {order?.paid ?
                                     <button className='btn btn-success btn-sm w-full mt-4'>paid</button>
                                     :
-                                    <Link to={`/dashboard/payment/${order?._id}`}>
-                                        <button className='btn btn-outline btn-sm w-full mt-4'>Pay</button>
-                                    </Link>
+                                    // <Link to={`/dashboard/payment/${order?._id}`}>
+                                    //     <button className='btn btn-outline btn-sm w-full mt-4'>Pay</button>
+                                    // </Link>
+                                    <button className='btn btn-outline btn-sm w-full mt-4'>Pay</button>
                                 }</td>
 
                             </tr>)

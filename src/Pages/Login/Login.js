@@ -50,7 +50,7 @@ const Login = () => {
 
     const savedUserToDatabase = (name, email) => {
         const user = { name, email, user_type: 'buyer' }
-        fetch(`https://y-livid-theta.vercel.app/users?email=${email}`, {
+        fetch(`http://localhost:5000/users?email=${email}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

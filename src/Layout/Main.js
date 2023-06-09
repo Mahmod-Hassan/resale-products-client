@@ -7,7 +7,10 @@ const Main = () => {
     return (
         <div>
             <Navbar></Navbar>
+            <div className='px-20'>
             <Outlet></Outlet>
+            </div>
+            
             <Footer></Footer>
         </div>
     );

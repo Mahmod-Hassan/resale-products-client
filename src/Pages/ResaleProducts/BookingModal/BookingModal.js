@@ -1,7 +1,7 @@
 
 import React, { useContext } from 'react';
-import toast from 'react-hot-toast';
 import { useForm } from "react-hook-form";
+import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
 const BookingModal = ({ product, setResaleProduct }) => {
@@ -17,7 +17,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
         }
 
         setResaleProduct(null);
-        fetch('https://y-livid-theta.vercel.app/orders', {
+        fetch('http://localhost:5000/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -25,9 +25,9 @@ const BookingModal = ({ product, setResaleProduct }) => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(data => { })
+            .then(data => console.log(data))
 
-        fetch(`https://y-livid-theta.vercel.app/product/${product?._id}`, {
+        fetch(`http://localhost:5000/product/${product?._id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'

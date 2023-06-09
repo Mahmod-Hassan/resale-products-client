@@ -29,32 +29,13 @@ const slideItems = [
 const Banner = () => {
 
     return (
-        <div className="carousel w-full h-4/5 border-4 ">
-            {
-                slideItems.map(item => <div
-                    key={item.id}
-                    id={`slide${item.id}`}
-                    className="carousel-item relative w-full mx-5">
-
-                    <div className='grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-20 place-items-center p-5'>
-                        <div>
-                            <h2 className="text-4xl text-purple-500 font-bold mb-5">{item.brand_name}</h2>
-                            <p>{item.phone_info}</p>
-                        </div>
-
-                        <div>
-                            <img src={item.img} alt="" className='h-48 lg:h-96' />
-                        </div>
-                    </div>
-
-                    <div className="absolute flex gap-5 w-full mx-auto bottom-0 justify-center">
-                        <a href={`#slide${item.prev}`} className="btn btn-circle">❮</a>
-                        <a href={`#slide${item.next}`} className="btn btn-circle">❯</a>
-                    </div>
-
-                </div>)
-            }
-
+    
+        <div className='bg-violet-100 h-[300px] w-full grid place-items-center mb-12 mt-4'>
+            <div className='text-center space-y-4'>
+                <h1 className='text-3xl md:text-5xl font-bold'>Welcome To Mobile Bazar</h1>
+                <h3 className='text-sm md:text-base w-1/2 mx-auto text-gray-500 font-medium'>This is an online old mobile phone selling website. In this website you can sell your old phone and you can buy second hand phone also.</h3>
+                <input className='w-1/2 rounded-full py-1 px-5 outline-none' type='text' placeholder="search your phone"></input>
+            </div>
         </div>
 
     );
