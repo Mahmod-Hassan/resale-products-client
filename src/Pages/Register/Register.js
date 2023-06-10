@@ -79,8 +79,11 @@ const Register = () => {
     }
 
     return (
-        <div>
-            <div className='sm:w-4/5 md:w-2/3 lg:w-1/2 mx-auto border-4 border-secondary  p-5'>
+        <div className='flex'>
+            <div>
+                <img src="https://i.ibb.co/Rc9fVfR/register.png" alt="" />
+            </div>
+            <div className='sm:w-4/5 md:w-2/3 lg:w-1/2 shadow-lg p-5'>
                 <h2 className="text-4xl text-secondary font-bold text-center">Register Now</h2>
                 <form onSubmit={handleSubmit(handleRegister)}>
 

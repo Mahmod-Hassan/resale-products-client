@@ -1,11 +1,11 @@
 import React from 'react';
 import Dashboard from '../Pages/Dashboard/Dashboard/Dashboard';
-import Navbar from '../Pages/Shared/Navbar/Navbar';
+import Header from '../Pages/Shared/Header/Header';
 
 const DashboardLayout = () => {
     return (
         <div>
-            <Navbar></Navbar>
+            <Header></Header>
             <Dashboard></Dashboard>
         </div>
     );

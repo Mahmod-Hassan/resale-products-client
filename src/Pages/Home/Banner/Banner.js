@@ -30,13 +30,27 @@ const Banner = () => {
 
     return (
     
-        <div className='bg-violet-100 h-[300px] w-full grid place-items-center mb-12 mt-4'>
-            <div className='text-center space-y-4'>
-                <h1 className='text-3xl md:text-5xl font-bold'>Welcome To Mobile Bazar</h1>
-                <h3 className='text-sm md:text-base w-1/2 mx-auto text-gray-500 font-medium'>This is an online old mobile phone selling website. In this website you can sell your old phone and you can buy second hand phone also.</h3>
-                <input className='w-1/2 rounded-full py-1 px-5 outline-none' type='text' placeholder="search your phone"></input>
+        // <div className='bg-violet-100 h-[300px] w-full grid place-items-center mb-12 mt-4'>
+        //     <div className='text-center space-y-4'>
+        //         <h1 className='text-3xl md:text-5xl font-bold'>Welcome To Mobile Bazar</h1>
+        //         <h3 className='text-sm md:text-base w-1/2 mx-auto text-gray-500 font-medium'>This is an online old mobile phone selling website. In this website you can sell your old phone and you can buy second hand phone also.</h3>
+        //         <input className='w-1/2 rounded-full py-1 px-5 outline-none' type='text' placeholder="search your phone"></input>
+        //     </div>
+        // </div>
+    <div className="py-16 mx-auto bg-blue-50/25 -mx-20">
+        <div className="items-center lg:flex px-20">
+            <div className="w-full lg:w-1/2">
+            <div className="lg:max-w-lg">
+                <h1 className="text-3xl font-semibold text-gray-800 lg:text-4xl">Best Place To Buy <br /><span className="text-primary">Old Mobile Phone</span></h1>
+                <p className="mt-3 text-gray-600">This is an online old mobile phone selling website. In this website you can sell your old phone and you can buy second hand phone also.</p>
+                <button className='btn btn-sm mt-4 btn-primary'>Order Now</button>
+            </div>
+            </div>
+            <div className="flex items-center justify-center w-full mt-6 lg:mt-0 lg:w-1/2">
+            <img className="w-full h-full lg:max-w-3xl" src="https://i.ibb.co/XJrzYD2/cropimage.png" alt="Catalogue-pana.svg" />
             </div>
         </div>
+     </div>
 
     );
 };

@@ -3,9 +3,10 @@ import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 
-const Navbar = () => {
+const Header = () => {
     const { user, logOut } = useContext(AuthContext);
-    console.log(user);
+    // const [open,setOpen] = useState(false);
+    // console.log(user);
     // const [userType, setUserType] = useState('');
     // useEffect(() => {
     //     if (user?.email) {
@@ -54,7 +55,7 @@ const Navbar = () => {
 
     return (
         // this is navbar container
-            <div className="navbar px-20 bg-gradient-to-r from-indigo-400 to-purple-400">
+            <div className="navbar px-20 bg-gray-100">
 
 {/* this is the navbar start point this is button and hidden 3 line icon */}
                 <div className="navbar-start">
@@ -71,7 +72,7 @@ const Navbar = () => {
 
                 {/* navbar end is here where links are include */}
                 <div className="navbar-end hidden lg:flex">
-                <ul className="p-0 flex items-center text-gray-100 font-medium">
+                <ul className="p-0 flex items-center font-medium">
                         {routes}
                     </ul>
                     <label tabIndex={2} htmlFor="dashboard-drawer" className="btn btn-ghost lg:hidden">
@@ -79,8 +80,10 @@ const Navbar = () => {
                     </label>
                 </div>
             </div>
-     
+
+
     );
 };
 
-export default Navbar;
+export default Header;
+

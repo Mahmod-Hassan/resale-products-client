@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import { HiOutlineArrowRight } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 
@@ -17,10 +18,13 @@ const Categories = () => {
     }
     
     const category = categories.map(category => category.category);
-   console.log(category);
+   
     return (
         <div className='text-center p-5 mt-10'>
-            <h1 className="text-3xl font-semibold text-center py-10 text-gray-900">Our Category</h1>
+            <div className='mb-4 space-y-3'>
+                <h1 className="text-3xl font-semibold text-center text-gray-900">Our Category</h1>
+                <p className='text-center text-gray-500'>Click any category and see a lots of product under the category</p>
+            </div>
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10'>
                 
                 {
@@ -35,7 +39,7 @@ const Categories = () => {
                             key={idx}
                             to={`/category/${categoryName}`}
                         >
-                            <button className='btn w-full mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 '>{categoryName}</button>
+                            <button className='btn w-full mb-4 flex gap-4 bg-gradient-to-r from-indigo-600 to-purple-600 '>{categoryName} <HiOutlineArrowRight></HiOutlineArrowRight></button>
                             </Link>
                         </div>
                       }
@@ -46,7 +50,7 @@ const Categories = () => {
                             key={idx}
                             to={`/category/${categoryName}`}
                         >
-                            <button className='btn w-full mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 '>{categoryName}</button>
+                            <button className='btn w-full mb-4 flex gap-4 bg-gradient-to-r from-indigo-600 to-purple-600 '>{categoryName} <HiOutlineArrowRight></HiOutlineArrowRight></button>
                             </Link>
                         </div>
                       }
@@ -57,7 +61,7 @@ const Categories = () => {
                             key={idx}
                             to={`/category/${categoryName}`}
                         >
-                            <button className='btn w-full mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 '>{categoryName}</button>
+                            <button className='btn w-full mb-4 flex gap-4 bg-gradient-to-r from-indigo-600 to-purple-600 '>{categoryName} <HiOutlineArrowRight></HiOutlineArrowRight></button>
                             </Link>
                         </div>
                       }
