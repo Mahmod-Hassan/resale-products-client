@@ -20,8 +20,7 @@ const Faq = () => {
     setActiveIndex(activeIndex === index ? null : index);
   };
     return (
-        <section className="bg-white">
-        <div className="">
+        <section className="md:my-20">
           <h1 className="text-2xl font-semibold text-gray-800 lg:text-3xl">Frequently Asked Qestions</h1>
           <hr className="my-6 border-gray-200" />
           {
@@ -43,7 +42,6 @@ const Faq = () => {
       
       ))
       }  
-        </div>
       </section>
     )
 }

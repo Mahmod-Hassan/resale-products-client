@@ -46,8 +46,7 @@ const Header = () => {
                 </>
                 :
                 <>
-                    <Link className='btn mr-4 btn-outline btn-primary sm:btn-sm md:btn-md rounded' to='/login'>Login</Link>
-                    <Link className='btn btn-outline sm:btn-sm md:btn-md rounded' to='/register'>SignUp</Link>
+                    <Link className='btn mr-4 btn-primary sm:btn-sm md:btn-md rounded' to='/create-account-with/login'>Login</Link>
                 </>
         }
     </>
@@ -55,7 +54,7 @@ const Header = () => {
 
     return (
         // this is navbar container
-            <div className="navbar px-20 bg-gray-100">
+            <div className="navbar sticky top-0 z-40 px-20 bg-gray-100">
 
 {/* this is the navbar start point this is button and hidden 3 line icon */}
                 <div className="navbar-start">
@@ -67,7 +66,7 @@ const Header = () => {
                             <li className='grid gap-2'>{routes}</li>
                         </ul>
                     </div>
-                    <Link to='/' className='text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-yellow-500'>Mobile Bazar</Link>
+                    <Link to='/' className='text-3xl flex items-center font-bold'> <img className="w-8 h-7 mx-auto" src="https://merakiui.com/images/logo.svg" alt="" /> obile <span className='text-blue-600 ml-4'> B</span>azar</Link>
                 </div>
 
                 {/* navbar end is here where links are include */}

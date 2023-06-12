@@ -52,60 +52,54 @@ const Record = () => {
             deliveryDate: '01-11-2022'
         },
         {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
+            productImage: 'https://i.ibb.co/fXF5XsW/samsung1.png',
+            productName: 'Samsung A11',
             buyerName: 'Miraz',
             sellerName: 'Mahmod',
             deliveryDate: '01-11-2022'
         },
         {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
+            productImage: 'https://i.ibb.co/brGnKcw/samsung2.png',
+            productName: 'Samsung J7',
             buyerName: 'Miraz',
             sellerName: 'Mahmod',
             deliveryDate: '01-11-2022'
         },
         {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
+            productImage: 'https://i.ibb.co/Tky7KzW/readmi4.png',
+            productName: 'Readmi 9',
             buyerName: 'Miraz',
             sellerName: 'Mahmod',
             deliveryDate: '01-11-2022'
         },
         {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
+            productImage: 'https://i.ibb.co/s6q7L2D/readmi3.png',
+            productName: 'Readmi 9 pro',
             buyerName: 'Miraz',
             sellerName: 'Mahmod',
             deliveryDate: '01-11-2022'
         },
         {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
+            productImage: 'https://i.ibb.co/s30t0dR/readmi2.png',
+            productName: 'Readmi 10',
             buyerName: 'Miraz',
             sellerName: 'Mahmod',
             deliveryDate: '01-11-2022'
         },
         {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
+            productImage: 'https://i.ibb.co/4gW1Qdw/readmi1.png',
+            productName: 'Readmi 11',
             buyerName: 'Miraz',
             sellerName: 'Mahmod',
             deliveryDate: '01-11-2022'
         },
-        {
-            productImage: 'https://i.ibb.co/52QXxkK/iphone.png',
-            productName: 'iphone 11',
-            buyerName: 'Miraz',
-            sellerName: 'Mahmod',
-            deliveryDate: '01-11-2022'
-        },
+  
     ]
     return (
-        <div className="my-16">
+        <div className="my-10">
             <h1 className="text-3xl font-semibold text-center my-5">Total <span className="text-blue-400">Selling</span> Record</h1>
         <Swiper 
-        slidesPerView={3}
+        slidesPerView={4}
         spaceBetween={30}
         freeMode={true}
         pagination={{
@@ -114,8 +108,8 @@ const Record = () => {
         modules={[FreeMode, Pagination]}
       >
           {
-            records.map((product,idx) => <SwiperSlide className="h-full p-5 border border-gray-500 rounded" key={idx}>
-                <img className="h-1/3 w-1/3 mx-auto" src={product.productImage} alt="" />
+            records.map((product,idx) => <SwiperSlide className="h-full p-5 mb-10 border border-gray-500 rounded" key={idx}>
+                <img className="h-40 mx-auto" src={product.productImage} alt="" />
                 <div className="w-60">
                 <p >Product &nbsp;&nbsp;: {product.productName}</p>
                 <p >Buyer &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: {product?.buyerName}</p>

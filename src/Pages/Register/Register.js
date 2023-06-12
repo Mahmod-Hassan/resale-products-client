@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
+import { HiOutlineLockClosed, HiOutlineMail, HiOutlineUpload, HiOutlineUser, HiSelector } from 'react-icons/hi';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
 import useToken from '../../hooks/useToken';
@@ -79,42 +80,40 @@ const Register = () => {
     }
 
     return (
-        <div className='flex'>
             <div>
-                <img src="https://i.ibb.co/Rc9fVfR/register.png" alt="" />
-            </div>
-            <div className='sm:w-4/5 md:w-2/3 lg:w-1/2 shadow-lg p-5'>
-                <h2 className="text-4xl text-secondary font-bold text-center">Register Now</h2>
-                <form onSubmit={handleSubmit(handleRegister)}>
+                {/* form start here */}
+                <form className='space-y-4' onSubmit={handleSubmit(handleRegister)}>
 
-                    <div className="form-control">
-                        <label className="label">Name</label>
-                        <input {...register("name", { required: "name is required" })} type="text" placeholder="Name" className="input input-bordered" />
+                    <div className="relative">
+                        <HiOutlineUser className='absolute mt-3 ml-2 text-2xl text-gray-200'></HiOutlineUser>
+                        <input {...register("name", { required: "name is required" })} type="text" className="text-gray-700 w-full py-3 bg-white border rounded-lg px-10 outline-none focus:ring-blue-300 focus:ring focus:ring-opacity-40" placeholder="Username" />
                         {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                     </div>
 
-                    <div className="form-control">
-                        <label className="label">Photo Url</label>
-                        <input {...register("photoUrl")} type="text" placeholder="Photo Url (optional)" className="input input-bordered" />
-                    </div>
+                    <label htmlFor="dropzone-file" className="flex px-2 py-3 bg-white border-2 border-dashed rounded-lg cursor-pointer">
+                        <HiOutlineUpload className='text-2xl text-gray-200'></HiOutlineUpload>
+                        <h2 className="mx-3 text-gray-400">Profile Photo</h2>
+                        <input id="dropzone-file" type="file" className="hidden" />
+                   </label>
 
-                    <div className="form-control">
-                        <label className="label">Buyer or Seller</label>
-                        <select {...register("user_type")} className="select select-bordered w-full">
+                    <label className="flex px-2 py-3 bg-white border rounded-lg cursor-pointer">
+                    <HiSelector className='text-2xl text-gray-200'></HiSelector>
+                    <select {...register("user_type")} className='w-full outline-none text-gray-400'>
                             <option>buyer</option>
                             <option>seller</option>
-                        </select>
-                    </div>
+                    </select>
+                    </label>
+                    
 
-                    <div className="form-control">
-                        <label className="label">Email</label>
-                        <input {...register("email", { required: "email required" })} type="email" placeholder="email" className="input input-bordered" />
+                    <div className="relative">
+                        <HiOutlineMail className='absolute mt-3 ml-2 text-2xl text-gray-200'></HiOutlineMail>
+                        <input {...register("email", { required: "email required" })} type="email" placeholder="email" className="text-gray-700 w-full py-3 bg-white border rounded-lg px-10 outline-none focus:ring-blue-300 focus:ring focus:ring-opacity-40"  />
                         {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                     </div>
 
                     <div className="form-control">
-                        <label className="label">Password</label>
-                        <input {...register("password", { required: "password field required" })} type="password" placeholder="password" className="input input-bordered" />
+                        <HiOutlineLockClosed className='absolute mt-3 ml-2 text-2xl text-gray-200'></HiOutlineLockClosed>
+                        <input {...register("password", { required: "password field required" })} type="password" placeholder="password" className="text-gray-700 w-full py-3 bg-white border rounded-lg px-10 outline-none focus:ring-blue-300 focus:ring focus:ring-opacity-40"  />
                         {errors.password && <p className='text-red-500'>{errors.password.message}</p>}
                     </div>
 
@@ -123,11 +122,11 @@ const Register = () => {
                         </p>
                     }
 
-                    <button className='btn btn-secondary mt-4 w-full' type="submit">Sign Up</button>
+                    <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50" type="submit">Sign Up</button>
                 </form>
-                <p className='text-sm mt-5'>Already have an account ? <Link to='/login' className='text-blue-500 underline hover:underline-offset-8 font-bold'>please login</Link></p>
+                {/* form end here */}
 
-            </div>
+               <Link to='/login' className="text-sm text-blue-500 hover:underline">Already have an account ?</Link>
         </div>
     );
 };

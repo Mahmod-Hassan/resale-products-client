@@ -7,7 +7,7 @@ const Main = () => {
     return (
         <div>
             <Header></Header>
-            <div className='px-20'>
+            <div className='px-5 md:px-10 lg:px-20'>
             <Outlet></Outlet>
             </div>
             

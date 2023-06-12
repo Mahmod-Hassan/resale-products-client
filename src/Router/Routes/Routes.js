@@ -2,6 +2,7 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import DashboardLayout from '../../Layout/DashboardLayout';
 import Main from '../../Layout/Main';
+import Account from '../../Pages/Account/Account';
 import AddProduct from '../../Pages/AddProduct/AddProduct';
 import Blogs from '../../Pages/Blogs/Blogs';
 import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
@@ -35,14 +36,20 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><GetProductsByCategoryId></GetProductsByCategoryId></PrivateRoute>,
                 loader: async ({ params }) => await fetch(`https://assigntment-12-server.vercel.app/category-products?category=${params.products}`)
             },
-            {
-                path: '/login',
-                element: <Login></Login>
-            },
-            {
-                path: '/register',
-                element: <Register></Register>
-            },
+           {
+            path : '/create-account-with',
+            element: <Account></Account>,
+            children: [
+                {
+                    path: '/create-account-with/login',
+                    element: <Login></Login>
+                },
+                {
+                    path: '/create-account-with/register',
+                    element: <Register></Register>
+                },
+            ]
+           },
             {
                 path: '/blogs',
                 element: <Blogs></Blogs>
