@@ -54,7 +54,7 @@ const Header = () => {
 
     return (
         // this is navbar container
-            <div className="navbar sticky top-0 z-40 px-20 bg-gray-100">
+            <div className="navbar border-b sticky top-0 z-40 px-20 bg-gray-100">
 
 {/* this is the navbar start point this is button and hidden 3 line icon */}
                 <div className="navbar-start">

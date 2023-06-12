@@ -97,7 +97,7 @@ const Record = () => {
     ]
     return (
         <div className="my-10">
-            <h1 className="text-3xl font-semibold text-center my-5">Total <span className="text-blue-400">Selling</span> Record</h1>
+            <h1 className="text-3xl font-semibold text-center my-5">Total <span className="text-blue-400">Delivered</span> Phone</h1>
         <Swiper 
         slidesPerView={4}
         spaceBetween={30}
