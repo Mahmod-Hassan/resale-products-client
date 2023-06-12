@@ -30,7 +30,7 @@ const Banner = () => {
 
     return (
 
-        <div className="py-16 mx-auto">
+        <div className="py-16 mx-auto bg-gray-100 -mx-20 px-20">
         <div className="items-center md:flex">
             <div className="w-full lg:w-1/2">
                 <div className="lg:max-w-lg">

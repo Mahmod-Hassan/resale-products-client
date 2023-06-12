@@ -5,12 +5,12 @@ import { FaEnvelope, FaFacebook, FaInstagram, FaLinkedin, FaLocationArrow, FaPho
 const Contact = () => {
 
     return (
-          <div className="md:flex my-10">
+          <div className="md:flex my-20">
 
                {/* left side div */}
             <div className="flex flex-col items-center justify-center md:w-1/2">
               <h1 className="text-2xl md:-ml-28 font-semibold text-gray-800 capitalize  md:text-3xl">
-                Contact With Us
+                <span className='text-blue-500'>Contact</span> With Us
               </h1>
               <div className="mt-6 space-y-8 md:mt-8">
                 <p className="flex gap-5 items-center">
@@ -48,9 +48,8 @@ const Contact = () => {
             </div>
 
             {/* right side div */}
-            <div className="md:w-1/2 px-8 py-10 mx-auto rounded-lg shadow-[0px_4px_8px_1px_rgba(0,0,0,0.2)] shadow-gray-300/50">
-                <h1 className="text-lg font-medium text-gray-700">What do you want to ask</h1>
-                <form className="mt-6">
+            <div className="md:w-1/2">
+                <form className='w-2/3 mx-auto rounded-lg ring-4 ring-opacity-40 p-5'>
                   <div className="flex-1">
                     <label className="block mb-2 text-sm text-gray-600">Full Name</label>
                     <input type="text" placeholder="John Doe" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />

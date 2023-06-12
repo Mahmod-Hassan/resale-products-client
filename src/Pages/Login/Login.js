@@ -96,10 +96,13 @@ const Login = () => {
                     </form>
                   {/* form end here */}
 
-                    <button onClick={handleGoogleSignIn} className="btn btn-outline btn-white w-full">SignIn With Google</button>
+                    <button onClick={handleGoogleSignIn} className="bg-white border border-gray-200 w-full flex justify-evenly items-center rounded-lg mb-4 hover:bg-gray-100">
+                        <img className='w-10' src="https://i.ibb.co/Rz9mzBJ/google.png" alt="" />
+                        SignIn With Google
+                        </button>
                     <div className="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
                         <span className="text-sm text-gray-600 dark:text-gray-200">Don't have an account? </span>
-                        <Link to='/register' className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">Register</Link>
+                        <Link to='/register' className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">register</Link>
                    </div>
                 </div>
 

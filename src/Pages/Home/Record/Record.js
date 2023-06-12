@@ -108,7 +108,7 @@ const Record = () => {
         modules={[FreeMode, Pagination]}
       >
           {
-            records.map((product,idx) => <SwiperSlide className="h-full p-5 mb-10 border border-gray-500 rounded" key={idx}>
+            records.map((product,idx) => <SwiperSlide className="h-full p-5 mb-10 border hover:border-0 hover:bg-yellow-600 hover:transition-colors hover:duration-500 hover:text-white border-gray-500 rounded" key={idx}>
                 <img className="h-40 mx-auto" src={product.productImage} alt="" />
                 <div className="w-60">
                 <p >Product &nbsp;&nbsp;: {product.productName}</p>
