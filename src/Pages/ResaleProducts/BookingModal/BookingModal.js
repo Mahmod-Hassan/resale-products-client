@@ -8,7 +8,8 @@ const BookingModal = ({ product, setResaleProduct }) => {
 
     const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
-    const { productName, resalePrice, image } = product;
+    const { productName, resalePrice, photoUrl, _id } = product;
+
 
     const handleBookingModal = data => {
         if (!(/(\+88)?-?01[0-9]\d{8}/g).test(data.number)) {
@@ -17,7 +18,8 @@ const BookingModal = ({ product, setResaleProduct }) => {
         }
 
         setResaleProduct(null);
-        fetch('https://assigntment-12-server.vercel.app/orders', {
+        // it will post an order to the order collection
+        fetch('https://mobile-bazar-server-jet.vercel.app/order', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -27,28 +29,30 @@ const BookingModal = ({ product, setResaleProduct }) => {
             .then(res => res.json())
             .then(data => console.log(data))
 
-        fetch(`https://assigntment-12-server.vercel.app/product/${product?._id}`, {
+            
+        // it will update the existing product
+        //after complete the booking I want to add a booked property to which product user booking
+        fetch(`https://mobile-bazar-server-jet.vercel.app/product/${_id}`, {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(product)
         })
             .then(res => res.json())
             .then(data => {
-                if (data?.modifiedCount > 0) {
-                    window.location.reload();
-                    toast.success(`${user?.displayName} you booked successfylly`)
-                }
+                console.log(data);
+                toast.success(`${user?.displayName} you booked successfylly`)
             })
-
+            .catch(err => console.log(err.message))
     }
+
+    
     return (
         <div>
             <input type="checkbox" id="resale-product-modal" className="modal-toggle" />
             <div className="modal">
                 <div className="modal-box max-w-2xl">
-                    <label htmlFor="resale-product-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                    <label onClick={() => setResaleProduct(null)} htmlFor="resale-product-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
 
                     <form onSubmit={handleSubmit(handleBookingModal)}>
@@ -75,7 +79,7 @@ const BookingModal = ({ product, setResaleProduct }) => {
 
                             <div className="form-control">
                                 <label className='text-sm'>photo url</label>
-                                <input type="text"  {...register("photoUrl")} defaultValue={image} readOnly className="input input-bordered" />
+                                <input type="text"  {...register("photoUrl")} defaultValue={photoUrl} readOnly className="input input-bordered" />
                             </div>
 
                             <div className="form-control">

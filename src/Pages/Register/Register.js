@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
@@ -13,16 +14,23 @@ const Register = () => {
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState('');
     const [token] = useToken(userEmail);
-
+    const imageHostKey = process.env.REACT_APP_imgbb_Key;
+//    console.log(token);
+   
+    // after getting token user will be redirect to home page
     useEffect(() => {
         if (token) {
             navigate('/');
         }
-    }, [token,navigate])
+    }, [token, userEmail])
+
+
     // registration form event handler start
     const handleRegister = data => {
-        const { name, email, password, photoUrl, user_type } = data;
-        
+       
+        const { name, email, password, userType } = data;
+
+        // validate the password
         if (!/[A-Z]/.test(password)) {
             setError('at least one uppercase');
             return;
@@ -35,49 +43,51 @@ const Register = () => {
             setError('at least 6 character')
             return;
         }
-        createUser(email, password)
+
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`
+
+        // post an image to imgbb server and get the imgUrl from big imgData
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => res.json())
+        .then(imgData => {
+            createUser(email, password)
             .then(result => {
                 const userInfo = {
                     displayName: name,
-                    photoUrl: photoUrl,
-                    user_type: user_type,
+                    photoURL: imgData?.data?.url,
                 }
+                
                 updateUser(userInfo)
                     .then((result) => {
-                        console.log(result)
-                        savedUserToDatabase(name, email, user_type)
+                        savedUserToDatabase(name, email, userType)
                     })
                     .catch(err => {
-                        console.log(err);
                         toast.error(err.message);
                     })
             })
             .catch(err => {
-                console.log(err);
                 toast.error(err.message);
             })
-    }
-    // registration form event handler end
-
-    // saved user to database by this function
-    const savedUserToDatabase = (name, email, user_type) => {
-        const user = { name, email, user_type }
-        fetch(`https://assigntment-12-server.vercel.app/users?email=${email}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    setUserEmail(email)
-                    setError('');
-                    toast.success('user created successfully')
-                }
-            })
     }
+    const savedUserToDatabase = (name, email, userType) => {
+        const user = {name, email, userType};
+      axios.put(`https://mobile-bazar-server-jet.vercel.app/user?email=${email}`, user)
+      .then(({data}) => {
+        if(data.acknowledged) {
+            setUserEmail(email)
+            setError('');
+            toast.success('user created successfully')
+        }
+      })
+    }
+   
 
     return (
             <div>
@@ -90,15 +100,18 @@ const Register = () => {
                         {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                     </div>
 
+                    <div>
                     <label htmlFor="dropzone-file" className="flex px-2 py-3 bg-white border-2 border-dashed rounded-lg cursor-pointer">
                         <HiOutlineUpload className='text-2xl text-gray-200'></HiOutlineUpload>
                         <h2 className="mx-3 text-gray-400">Profile Photo</h2>
-                        <input id="dropzone-file" type="file" className="hidden" />
+                        <input {...register("image", { required: "image is required" })} id="dropzone-file" type="file"  />
                    </label>
+                   {errors.image && <p className='text-red-500'>{errors.image.message}</p>}
+                   </div>
 
                     <label className="flex px-2 py-3 bg-white border rounded-lg cursor-pointer">
                     <HiSelector className='text-2xl text-gray-200'></HiSelector>
-                    <select {...register("user_type")} className='w-full outline-none text-gray-400'>
+                    <select {...register("userType")} className='w-full outline-none text-gray-400'>
                             <option>buyer</option>
                             <option>seller</option>
                     </select>
@@ -122,11 +135,11 @@ const Register = () => {
                         </p>
                     }
 
-                    <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50" type="submit">Sign Up</button>
+                    <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 mb-5" type="submit">Sign Up</button>
                 </form>
                 {/* form end here */}
 
-               <Link to='/login' className="text-sm text-blue-500 hover:underline">Already have an account ?</Link>
+               <Link to='/create-account-with/login' className="text-sm text-blue-500 hover:underline">Already have an account ?</Link>
         </div>
     );
 };

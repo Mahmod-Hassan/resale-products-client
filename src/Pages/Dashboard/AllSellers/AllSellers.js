@@ -1,67 +1,21 @@
 
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
-import toast from 'react-hot-toast';
+import useGetRequest from '../../../hooks/useGetRequest';
+import { deleteBuyerAndSeller, makeAdmin, verifiedSeller } from '../../../utils/handleUserApi';
+import Loader from '../../Shared/Loader/Loader';
 
 const AllSellers = () => {
-
-    const { data: sellers = [], refetch } = useQuery({
-        queryKey: ['all-sellers'],
-        queryFn: async () => {
-            const res = await fetch('https://assigntment-12-server.vercel.app/all-sellers?type=seller');
-            const data = await res.json();
-            return data;
-        }
-    })
-    const handleMakeAdmin = id => {
-        fetch(`https://assigntment-12-server.vercel.app/users/admin/${id}`, {
-            method: 'PUT',
-            headers: {
-                authorization: `$bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.modifiedCount > 0) {
-                    toast.success('make admin successfully');
-                    refetch();
-                }
-            })
+    const {data: sellers, loading} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/user?type=seller`);
+   
+    // if loading show the Loader component
+    if(loading){
+        return <Loader></Loader>
     }
-
-    const handleSellerDelete = id => {
-        const proceed = window.confirm('are u sure want to DELETE');
-        if (proceed) {
-            fetch(`https://assigntment-12-server.vercel.app/delete-user/${id}`, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.deletedCount > 0) {
-                        refetch();
-                    }
-
-
-                })
-        }
-    }
-
-    const verifySellerHandler = id => {
-        fetch(`https://assigntment-12-server.vercel.app/users/seller/${id}`, {
-            method: 'PUT',
-            headers: {
-                authorization: ` bearer ${localStorage.getItem('accessToken')}`
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                refetch()
-            })
-    }
+    
+    
     return (
         <div className='m-4'>
-            <h2 className="text-2xl text-center font-bold mb-4 text-accent">All sellers</h2>
+            <h2 className="text-2xl text-center font-bold mb-4 text-blue-500 ">All sellers</h2>
             <div className="overflow-x-auto">
                 <table className="table w-full">
                     <thead>
@@ -89,14 +43,14 @@ const AllSellers = () => {
                                             ?
                                             <button className='btn btn-sm btn-primary'>Admin</button>
                                             :
-                                            <button onClick={() => handleMakeAdmin(seller._id)} className='btn btn-sm'>Make Admin</button>
+                                            <button onClick={() => makeAdmin(seller._id)} className='btn btn-sm'>Make Admin</button>
                                     }</td>
-                                    <td><button onClick={() => handleSellerDelete(seller?._id)} className='btn btn-error btn-sm'>Delete</button></td>
+                                    <td><button onClick={() => deleteBuyerAndSeller(seller?._id)} className='btn btn-error btn-sm'>Delete</button></td>
                                     {
                                         seller?.verified === true ?
                                             <td><button className='btn btn-disabled btn-sm'>Verified</button></td>
                                             :
-                                            <td><button onClick={() => verifySellerHandler(seller?._id)} className='btn btn-accent btn-sm'>Unverify</button></td>
+                                            <td><button onClick={() => verifiedSeller(seller?._id)} className='btn btn-accent btn-sm'>Unverify</button></td>
                                     }
                                 </tr>)
                                 :

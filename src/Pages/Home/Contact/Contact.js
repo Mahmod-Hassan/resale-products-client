@@ -5,10 +5,10 @@ import { FaEnvelope, FaFacebook, FaInstagram, FaLinkedin, FaLocationArrow, FaPho
 const Contact = () => {
 
     return (
-          <div className="md:flex my-20">
+          <div className="flex flex-col md:flex-row my-20 gap-10">
 
                {/* left side div */}
-            <div className="flex flex-col items-center justify-center md:w-1/2">
+            <div className="flex flex-col md:items-center justify-center md:w-1/2">
               <h1 className="text-2xl md:-ml-28 font-semibold text-gray-800 capitalize  md:text-3xl">
                 <span className='text-blue-500'>Contact</span> With Us
               </h1>
@@ -30,17 +30,17 @@ const Contact = () => {
               </div>
               <div className="mt-6 w-80 md:mt-8">
                 <h3 className="text-gray-600 dark:text-gray-300 ">Follow us with: </h3>
-                <div className="flex mt-4 -mx-1.5 ">
-                  <a className="text-2xl mx-1.5 text-gray-400 transition-colors duration-300 transform hover:text-blue-500" href="#">
+                <div className="flex gap-x-5 mt-4">
+                  <a className="text-2xl text-blue-500 transition-colors duration-300 transform hover:text-gray-400" href="#">
                   <FaFacebook></FaFacebook>
                   </a>
-                  <a className="text-2xl mx-1.5 text-gray-400 transition-colors duration-300 transform hover:text-blue-500" href="#">
+                  <a className="text-2xl text-blue-500 transition-colors duration-300 transform hover:text-gray-400" href="#">
                    <FaTwitter></FaTwitter>
                   </a>
-                  <a className="text-2xl mx-1.5 text-gray-400 transition-colors duration-300 transform hover:text-blue-500" href="#">
+                  <a className="text-2xl text-blue-500 transition-colors duration-300 transform hover:text-gray-400" href="#">
                   <FaInstagram></FaInstagram>
                   </a>
-                  <a className="text-2xl mx-1.5 text-gray-400 transition-colors duration-300 transform hover:text-blue-500" href="#">
+                  <a className="text-2xl text-blue-500 transition-colors duration-300 transform hover:text-gray-400" href="#">
                    <FaLinkedin></FaLinkedin>
                   </a>
                 </div>
@@ -49,7 +49,7 @@ const Contact = () => {
 
             {/* right side div */}
             <div className="md:w-1/2">
-                <form className='w-2/3 mx-auto rounded-lg ring-4 ring-opacity-40 p-5'>
+                <form className='md:w-2/3 mx-auto rounded-lg ring-4 ring-opacity-40 p-5'>
                   <div className="flex-1">
                     <label className="block mb-2 text-sm text-gray-600">Full Name</label>
                     <input type="text" placeholder="John Doe" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />

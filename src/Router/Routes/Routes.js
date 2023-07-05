@@ -9,6 +9,7 @@ import AllBuyers from '../../Pages/Dashboard/AllBuyers/AllBuyers';
 import AllSellers from '../../Pages/Dashboard/AllSellers/AllSellers';
 import MyOrders from '../../Pages/Dashboard/MyOrders/MyOrders';
 import MyProducts from '../../Pages/Dashboard/MyProducs/MyProducts';
+import Payment from '../../Pages/Dashboard/Payment/Payment';
 import Home from '../../Pages/Home/Home/Home';
 import Login from '../../Pages/Login/Login';
 import NotFound from '../../Pages/NotFound/NotFound';
@@ -32,9 +33,9 @@ const router = createBrowserRouter([
                 element: <Home></Home>,
             },
             {
-                path: '/category/:products',
+                path: '/category/:name',
                 element: <PrivateRoute><GetProductsByCategoryId></GetProductsByCategoryId></PrivateRoute>,
-                loader: async ({ params }) => await fetch(`https://assigntment-12-server.vercel.app/category-products?category=${params.products}`)
+                loader: async ({ params }) => await fetch(`https://mobile-bazar-server-jet.vercel.app/product/category?category=${params.name}`)
             },
            {
             path : '/create-account-with',
@@ -63,7 +64,6 @@ const router = createBrowserRouter([
     {
         path: '/dashboard',
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-        errorElement: <DisplayError></DisplayError>,
         children: [
             {
                 path: '/dashboard',
@@ -81,11 +81,11 @@ const router = createBrowserRouter([
                 path: '/dashboard/all-sellers',
                 element: <AdminRoute><AllSellers></AllSellers></AdminRoute>
             },
-            // {
-            //     path: '/dashboard/payment/:id',
-            //     element: <Payment></Payment>,
-            //     loader: ({ params }) => fetch(`https://assigntment-12-server.vercel.app/payment-order/${params.id}`)
-            // },
+            {
+                path: '/dashboard/payment/:id',
+                element: <Payment></Payment>,
+                loader: ({ params }) => fetch(`https://mobile-bazar-server-jet.vercel.app/payments/order/${params.id}`)
+            },
         ]
     },
     {
@@ -94,3 +94,8 @@ const router = createBrowserRouter([
     }
 ])
 export default router;
+
+// // localhost link
+// https://mobile-bazar-server-jet.vercel.app
+// // live server link
+// https://mobile-bazar-server-jet.vercel.app

@@ -1,5 +1,5 @@
+import { GoogleAuthProvider, createUserWithEmailAndPassword, deleteUser, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from 'firebase/auth';
 import app from '../../firebase/firebase.config';
 
 
@@ -29,7 +29,9 @@ const AuthProvider = ({ children }) => {
         setLoading(true);
         return updateProfile(auth.currentUser, userInfo);
     }
-
+    const deleteAUser = (user) => {
+        deleteUser(user)
+    }
     const logOut = () => {
         return signOut(auth);
     }
@@ -48,6 +50,7 @@ const AuthProvider = ({ children }) => {
         signIn,
         googleSignIn,
         updateUser,
+        deleteAUser,
         logOut,
         user,
         loading

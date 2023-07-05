@@ -23,16 +23,21 @@ const Dashboard = () => {
                     {/* sidebar content here */}
                     <Link to='/dashboard' className='hover:bg-slate-300 p-3 bg-slate-100'>My Orders</Link>
 
-                    {
-                        (isSeller || isAdmin) &&
-                        <Link to='/dashboard/my-products' className='hover:bg-slate-300 p-3 bg-slate-100 my-3'>My Products</Link>
-                    }
-                    {
-                        isAdmin && <>
-                            <Link to='/dashboard/all-buyers' className='hover:bg-slate-300 p-3 bg-slate-100 my-3'>All Buyers</Link>
-                            <Link to='/dashboard/all-sellers' className='hover:bg-slate-300 p-3 bg-slate-100'>All Sellers</Link>
-                        </>
-                    }
+                 {
+                    (isAdmin || isSeller) && 
+                    <Link to='/dashboard/my-products' className='hover:bg-slate-300 p-3 bg-slate-100 my-3'>My Products</Link>
+                 }
+                    
+
+                  {
+                    isAdmin && <>
+                      <Link to='/dashboard/all-buyers' className='hover:bg-slate-300 p-3 bg-slate-100 my-3'>All Buyers</Link>
+                    
+                      <Link to='/dashboard/all-sellers' className='hover:bg-slate-300 p-3 bg-slate-100'>All Sellers</Link>
+                    </>
+                  }
+                
+
                 </ul>
 
             </div>

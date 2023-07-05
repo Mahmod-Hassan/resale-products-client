@@ -14,11 +14,7 @@ const Faq = () => {
     {
       question: 'What is your profit?',
       answer: 'Ovbiously we have profit. when seller post for sell his/her product we take a percentige from them.'
-    },
-    {
-      question: 'How to buy a phone?',
-      answer: '1. You need to login first. 2. Click our category and choice your phone and booked it. 3. Then go to the dashboard page and click the buy button and complete the order with stripe payment get way.'
-    },
+    }
   ]
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -29,7 +25,7 @@ const Faq = () => {
    
           {
           faqData.map((item, index) => (
-            <div key={index} className="border-2 w-2/3 mx-auto border-gray-100 rounded-lg mb-5">
+            <div key={index} className="border-2 md:w-2/3 mx-auto border-gray-100 rounded-lg mb-5">
             <button onClick={() => toggleAccordion(index)} className="flex items-center justify-between w-full p-8">
               <h1 className="text-xl font-semibold text-gray-700">{item.question}</h1>
               <p className="text-3xl bg-white text-blue-500">

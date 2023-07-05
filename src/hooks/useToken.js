@@ -4,14 +4,16 @@ const useToken = email => {
     const [token, setToken] = useState('');
     useEffect(() => {
         if (email) {
-            fetch(`https://assigntment-12-server.vercel.app/jwt?email=${email}`)
+            fetch(`https://mobile-bazar-server-jet.vercel.app/user/send-token/${email}`)
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data)
                     if (data?.accessToken) {
-                        localStorage.setItem('accessToken', data?.accessToken);
+                        localStorage.setItem('access_token', data?.accessToken);
                         setToken(data?.accessToken);
                     }
                 })
+                .catch(err => console.log(err.message))
         }
     }, [email])
     return [token]

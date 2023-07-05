@@ -7,6 +7,7 @@ import ResaleProducts from '../ResaleProducts/ResaleProducts';
 const GetProductsByCategoryId = () => {
     const products = useLoaderData();
     const [resaleProduct, setResaleProduct] = useState(null);
+   
     return (
         <div>
 

@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
 
 const useSeller = email => {
-    const [isSeller, setIsSeller] = useState('');
+    const [isSeller, setIsSeller] = useState();
     const [isSellerLoading, setIsSellerLoading] = useState(true);
     useEffect(() => {
         if (email) {
-            fetch(`https://assigntment-12-server.vercel.app/users/seller/${email}`)
+            fetch(`https://mobile-bazar-server-jet.vercel.app/user/${email}`)
                 .then(res => res.json())
                 .then(data => {
-                    setIsSeller(data?.isSeller);
-                    setIsSellerLoading(false);
+                    if(data?.userType === 'seller'){
+                        setIsSeller(true);
+                        setIsSellerLoading(false);
+                    }else{
+                        setIsSeller(false)
+                        setIsSellerLoading(false);
+                    }
+                    
                 })
         }
     }, [email]);

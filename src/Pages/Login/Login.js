@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
@@ -13,11 +14,14 @@ const Login = () => {
     const from = location.state?.from?.pathname || '/';
     const [userEmail, setUserEmail] = useState('');
     const [token] = useToken(userEmail);
+    // console.log(userEmail);
+    // after getting token user will go to his location
+    // where he want to go
     useEffect(() => {
         if (token) {
             navigate(from, { replace: true });
         }
-    }, [token])
+    }, [token, from, navigate,userEmail])
 
 
     // login form evnet handler start
@@ -25,8 +29,8 @@ const Login = () => {
         const { email, password } = data;
         signIn(email, password)
             .then(result => {
-                toast.success('successfully logged In');
-                setUserEmail(email);
+              const user = result.user;
+              savedUserToDatabase(user?.displayName, user?.email);
             })
             .catch(err => {
                 toast.error(err.message);
@@ -39,33 +43,23 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                setUserEmail(user?.email);
                 savedUserToDatabase(user?.displayName, user?.email)
             })
             .catch(err => {
                 toast.error(err.message);
             })
     }
-    // google sign in method end
-
-    const savedUserToDatabase = (name, email) => {
-        const user = { name, email, user_type: 'buyer' }
-        fetch(`https://assigntment-12-server.vercel.app/users?email=${email}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
+    const savedUserToDatabase = (name,email) => {
+        const user = {name, email};
+        axios.put(`https://mobile-bazar-server-jet.vercel.app/user?email=${email}`, user)
+        .then(({data}) => {
+            if (data.acknowledged) {
+                setUserEmail(email)
+                toast.success('sign-in successful')
+            }
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    setUserEmail(email)
-                    toast.success('Google sign in successful')
-                }
-            })
+        .catch(err => console.log(err))
     }
-    
 
     return (
                 <div>
@@ -102,7 +96,7 @@ const Login = () => {
                         </button>
                     <div className="flex items-center justify-center py-4 text-center bg-gray-50 dark:bg-gray-700">
                         <span className="text-sm text-gray-600 dark:text-gray-200">Don't have an account? </span>
-                        <Link to='/register' className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">register</Link>
+                        <Link to='/create-account-with/register' className="mx-2 text-sm font-bold text-blue-500 dark:text-blue-400 hover:underline">register</Link>
                    </div>
                 </div>
 
