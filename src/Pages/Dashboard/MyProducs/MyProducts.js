@@ -1,16 +1,37 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useApiRequest from '../../../hooks/useApiRequest';
 import useGetRequest from '../../../hooks/useGetRequest';
-import { deleteProduct } from '../../../utils/handleProductApi';
 import Loader from '../../Shared/Loader/Loader';
 
 const MyProducts = () => {
+
+    // useApiRequest is my custom hooks that returns sendRequest function
+    // sendRequest function receive 3 parameter(url, method, data)
+    // sendRequest function can handle all request like(get,post,put,delete)
+    const {sendRequest} = useApiRequest();
+
+    // get user from AuthContext
     const { user } = useContext(AuthContext);
-    const {data: products, loading} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/product/my?email=${user?.email}`);
+
+    // fetching all products
+    const {data: products, loading, refetch} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/product/my?email=${user?.email}`);
+    
+    // delete product
+    const deleteProduct = async (id) => {
+        const proceed = window.confirm('are u sure want to DELETE');
+        if(proceed){
+            const data = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/product/${id}`, 'DELETE')
+            if(data.acknowledged) refetch();
+        }
+    }
+
+    // if loading Loader will displayed
     if(loading){
     return <Loader></Loader>
     }
 
+    // My products component(function) return this jsx element(object)
     return (
         <div className='m-4'>
             <h2 className="text-2xl text-center mb-4 text-blue-500 font-bold">My Products</h2>

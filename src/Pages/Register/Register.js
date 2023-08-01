@@ -46,6 +46,7 @@ const Register = () => {
 
         const image = data.image[0];
         const formData = new FormData();
+        console.log(image);
         formData.append('image', image);
         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`
 

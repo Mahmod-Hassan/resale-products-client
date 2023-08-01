@@ -1,19 +1,12 @@
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
-import useApiRequest from '../../../hooks/useApiRequest';
+import useGetRequest from '../../../hooks/useGetRequest';
 
 const Header = () => {
     const {user, logOut } = useContext(AuthContext);
-    const [userType, setUserType] = useState('');
-    // get user type
-    const { sendRequest } = useApiRequest();
-    useEffect(() => {
-        sendRequest(`https://mobile-bazar-server-jet.vercel.app/user/${user?.email}`,'GET')
-        .then(data => setUserType(data.userType))
-        .catch(err => console.log(err))
-    },[])
+    const {data} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/user/${user?.email}`);
 
     // const [open,setOpen] = useState(false);
     const handleLogout = () => {
@@ -30,7 +23,7 @@ const Header = () => {
             <Link to='/dashboard' className='mr-4'>Dashboard</Link>
         }
         {
-            userType === 'seller' && <Link to='/add-product' className='mr-4'>AddAProduct</Link>
+            data?.userType === 'seller' && <Link to='/add-product' className='mr-4'>AddAProduct</Link>
         }
         {
             user?.email ?

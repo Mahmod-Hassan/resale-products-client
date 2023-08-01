@@ -1,17 +1,38 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useApiRequest from '../../../hooks/useApiRequest';
 import useGetRequest from '../../../hooks/useGetRequest';
-import { deleteOrder } from '../../../utils/handleOrderApi';
 import Loader from '../../Shared/Loader/Loader';
 
 const MyOrders = () => {
-    // get user from context bcz I need user email
+
+    // useApiRequest is my custom hooks that returns sendRequest function
+    // sendRequest function receive 3 parameter(url, method, data)
+    // sendRequest function can handle all request like(get,post,put,delete)
+    const { sendRequest } = useApiRequest();
+
+    // get user from AuthContext
     const { user } = useContext(AuthContext);
-    const {data:orders, loading} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/order?email=${user?.email}`);
+
+    // fetchin orders by using my own custom hook
+    const {data:orders, loading, refetch} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/order?email=${user?.email}`);
+
+    // delete order
+    const deleteOrder = async (id) => {
+        const proceed = window.confirm('are u sure want to DELETE');
+        if(proceed){
+            const data = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/order/${id}`, 'DELETE');
+            if(data.acknowledged) refetch();
+        }
+        
+    }
+    // if loading loader will display
     if(loading){
         return <Loader></Loader>
     }
+
+    // return the jsx
     return (
         <div className='m-4'>
             <h2 className="text-2xl text-center mb-4 text-blue-500  font-bold">My Orders</h2>

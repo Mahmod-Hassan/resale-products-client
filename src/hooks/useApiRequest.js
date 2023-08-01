@@ -5,7 +5,7 @@ const useApiRequest = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const sendRequest = async (url, method, body = null) => {
+  const sendRequest = async (url, method, body) => {
     setLoading(true);
     try {
       const response = await axios({
@@ -16,7 +16,6 @@ const useApiRequest = () => {
           'Content-Type': 'application/json',
         },
       });
-    //  console.log(response)
       const data = response.data;
       setLoading(false);
       return data;

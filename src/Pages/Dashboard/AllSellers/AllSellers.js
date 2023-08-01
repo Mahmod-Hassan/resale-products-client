@@ -1,12 +1,39 @@
 
 import React from 'react';
+import useApiRequest from '../../../hooks/useApiRequest';
 import useGetRequest from '../../../hooks/useGetRequest';
-import { deleteBuyerAndSeller, makeAdmin, verifiedSeller } from '../../../utils/handleUserApi';
 import Loader from '../../Shared/Loader/Loader';
 
 const AllSellers = () => {
-    const {data: sellers, loading} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/user?type=seller`);
-   
+    
+    // useApiRequest is my custom hooks that returns sendRequest function
+    // sendRequest function receive 3 parameter(url, method, data)
+    // sendRequest function can handle all request like(get,post,put,delete)
+    const { sendRequest } = useApiRequest();
+    
+    // fetching sellers using custom hook
+    const {data: sellers, loading, refetch} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/user?type=seller`);
+    
+    // verify seller
+    const verifyTheSeller = async (id) => {
+        const data = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/user/verify-seller/${id}`,'PUT', {verified: true});
+        if(data.acknowledged) refetch();
+    }
+
+    // make admin
+    const makeAdmin = async (id) => {
+        const data = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/user/make-admin/${id}`, 'PUT', { role: 'admin'});
+        if(data.acknowledged) refetch();
+    }
+
+    // delete a seller
+    const deleteSeller = async (id) => {
+        const proceed = window.confirm('are u sure want to DELETE');
+        if(proceed){
+            const data = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/user/${id}`, 'DELETE');
+            if(data.acknowledged) refetch();
+        }
+    }
     // if loading show the Loader component
     if(loading){
         return <Loader></Loader>
@@ -45,12 +72,12 @@ const AllSellers = () => {
                                             :
                                             <button onClick={() => makeAdmin(seller._id)} className='btn btn-sm'>Make Admin</button>
                                     }</td>
-                                    <td><button onClick={() => deleteBuyerAndSeller(seller?._id)} className='btn btn-error btn-sm'>Delete</button></td>
+                                    <td><button onClick={() => deleteSeller(seller?._id)} className='btn btn-error btn-sm'>Delete</button></td>
                                     {
                                         seller?.verified === true ?
                                             <td><button className='btn btn-disabled btn-sm'>Verified</button></td>
                                             :
-                                            <td><button onClick={() => verifiedSeller(seller?._id)} className='btn btn-accent btn-sm'>Unverify</button></td>
+                                            <td><button onClick={() => verifyTheSeller(seller?._id)} className='btn btn-accent btn-sm'>Unverify</button></td>
                                     }
                                 </tr>)
                                 :

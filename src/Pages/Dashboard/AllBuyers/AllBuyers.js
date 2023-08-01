@@ -1,14 +1,31 @@
 import React from 'react';
+import useApiRequest from '../../../hooks/useApiRequest';
 import useGetRequest from '../../../hooks/useGetRequest';
-import { deleteBuyerAndSeller } from '../../../utils/handleUserApi';
 import Loader from '../../Shared/Loader/Loader';
 
 
 const AllBuyers = () => {
-    const {data: buyers, loading} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/user?type=buyer`)
+
+    // useApiRequest is my custom hooks that returns sendRequest function
+    // sendRequest function receive 3 parameter(url, method, data)
+    // sendRequest function can handle all request like(get,post,put,delete)
+    const {sendRequest} = useApiRequest();
+
+    // fetching buyers using custom hook
+    const {data: buyers, loading, refetch} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/user?type=buyer`)
+
+    // delete buyer
+    const deleteBuyer = async (id) => {
+        const proceed = window.confirm('are u sure want to DELETE');
+        if(proceed){
+            const data = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/user/${id}`, 'DELETE');
+            if(data.acknowledged) refetch();
+        }
+    }
+    
     // if loading show the Loader component
     if(loading){
-        return <Loader></Loader>
+         return <Loader></Loader>
     }
     
     return (
@@ -34,7 +51,7 @@ const AllBuyers = () => {
                                     <th>{idx + 1}</th>
                                     <td>{buyer.name}</td>
                                     <td>{buyer.email}</td>
-                                    <td><button onClick={() => deleteBuyerAndSeller(buyer?._id)} className='btn btn-error btn-sm'>Delete</button></td>
+                                    <td><button onClick={() => deleteBuyer(buyer?._id)} className='btn btn-error btn-sm'>Delete</button></td>
                                 </tr>)
                                 :
                                 <tr className='text-center text-xl text-primary'>No Buyer Found</tr>

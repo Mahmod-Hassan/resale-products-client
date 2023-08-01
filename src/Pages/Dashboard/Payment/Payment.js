@@ -9,8 +9,10 @@ const stripePromise = loadStripe('pk_test_51M9jFfIzpViBLKyq70XBNvNq8zgQ4oxUT1j0g
 
 const Payment = () => {
 
+    // useLoaderData is a react-router-dom method
+    // go to the Routes component (path: '/dashboard/payment/:id') to see how it works
     const order = useLoaderData();
-    console.log(order);
+    
     return (
         <div>
             <h3 className="text-3xl text-center mt-5 font-bold">payment for <span className='text-error'>{order?.productName}</span> price <span className='text-error'>{order?.price}$</span></h3>

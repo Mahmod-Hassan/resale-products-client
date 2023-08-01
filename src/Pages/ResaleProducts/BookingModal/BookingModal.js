@@ -3,15 +3,19 @@ import React, { useContext } from 'react';
 import { useForm } from "react-hook-form";
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
+import useApiRequest from '../../../hooks/useApiRequest';
 
-const BookingModal = ({ product, setResaleProduct }) => {
+const BookingModal = ({ product, setResaleProduct, refetch }) => {
+    // useApiRequest is my custom hooks that returns sendRequest function
+    // sendRequest function receive 3 parameter(url, method, data)
+    // sendRequest function can handle all request like(get,post,put,delete)
+    const { sendRequest } = useApiRequest();
 
     const { register, handleSubmit } = useForm();
     const { user } = useContext(AuthContext);
     const { productName, resalePrice, photoUrl, _id } = product;
 
-
-    const handleBookingModal = data => {
+    const handleBookingModal = async data => {
         if (!(/(\+88)?-?01[0-9]\d{8}/g).test(data.number)) {
             toast.error('please input valid number')
             return;
@@ -19,31 +23,18 @@ const BookingModal = ({ product, setResaleProduct }) => {
 
         setResaleProduct(null);
         // it will post an order to the order collection
-        fetch('https://mobile-bazar-server-jet.vercel.app/order', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then(res => res.json())
-            .then(data => console.log(data))
-
+         const orderInsert = await sendRequest('https://mobile-bazar-server-jet.vercel.app/order', 'POST', data);
             
         // it will update the existing product
         //after complete the booking I want to add a booked property to which product user booking
-        fetch(`https://mobile-bazar-server-jet.vercel.app/product/${_id}`, {
-            method: 'PUT',
-            headers: {
-                'content-type': 'application/json'
-            },
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                toast.success(`${user?.displayName} you booked successfylly`)
-            })
-            .catch(err => console.log(err.message))
+        const productUpdate = await sendRequest(`https://mobile-bazar-server-jet.vercel.app/product/${_id}`, 'PUT', {booked: 'booked'});
+        
+
+        if(orderInsert && productUpdate.acknowledged) {
+            toast.success(`${user?.displayName} you booked ${productName} successfully`)
+            refetch()
+        }
+        
     }
 
     
