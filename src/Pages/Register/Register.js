@@ -22,7 +22,7 @@ const Register = () => {
         if (token) {
             navigate('/');
         }
-    }, [token, userEmail])
+    }, [token, userEmail,navigate])
 
 
     // registration form event handler start
@@ -31,14 +31,14 @@ const Register = () => {
         const { name, email, password, userType } = data;
 
         // validate the password
-        if (!/[A-Z]/.test(password)) {
-            setError('at least one uppercase');
-            return;
-        }
-        if (!/[0-9]/.test(password)) {
-            setError('at least One number');
-            return;
-        }
+        // if (!/[A-Z]/.test(password)) {
+        //     setError('at least one uppercase');
+        //     return;
+        // }
+        // if (!/[0-9]/.test(password)) {
+        //     setError('at least One number');
+        //     return;
+        // }
         if (password.length < 6) {
             setError('at least 6 character')
             return;
@@ -46,7 +46,6 @@ const Register = () => {
 
         const image = data.image[0];
         const formData = new FormData();
-        console.log(image);
         formData.append('image', image);
         const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imageHostKey}`
 
