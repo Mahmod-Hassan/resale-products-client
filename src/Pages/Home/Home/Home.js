@@ -1,7 +1,7 @@
 
 import React from 'react';
 import AboutUs from '../AboutUs/AboutUs';
-import Banner from '../Banner/Banner';
+import Banner from '../Banner/Sliders';
 import Buy from '../Buy/Buy';
 import Categories from '../Categories/Categories';
 import Contact from '../Contact/Contact';

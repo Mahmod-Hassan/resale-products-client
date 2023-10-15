@@ -23,6 +23,7 @@ import { AuthContext } from './context/AuthProvider/AuthProvider';
 
 function App() {
   const {user} = useContext(AuthContext);
+  console.log(user);
   return (
     <div>
       {/* <RouterProvider router={router}></RouterProvider> */}

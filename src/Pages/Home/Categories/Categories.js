@@ -20,7 +20,7 @@ const Categories = () => {
                   
           
                       <div className='shadow-[0px_4px_8px_1px_rgba(0,0,0,0.2)] p-5 rounded-md'>
-                           <img className='w-20 h-20 mx-auto' src="https://i.ibb.co/68h6m6n/samsung-png.png" alt="" />
+                           <img className='w-20 h-20 mx-auto' src="https://i.pinimg.com/originals/a2/27/df/a227df4822db04573a0755bac50c7b32.png" alt="" />
                             <Link
                             to={`/category/iphone`}
                         >
@@ -28,7 +28,7 @@ const Categories = () => {
                             </Link>
                         </div>
                       <div className='shadow-[0px_4px_8px_1px_rgba(0,0,0,0.2)] p-5 rounded-md'>
-                           <img className='w-20 h-20 mx-auto' src="https://i.ibb.co/68h6m6n/samsung-png.png" alt="" />
+                           <img className='w-20 h-20 mx-auto' src="https://png.pngitem.com/pimgs/s/127-1273741_transparent-samsung-png-samsung-galaxy-s6-edge-plus.png" alt="" />
                             <Link
                             to={`/category/Samsung`}
                         >
@@ -36,7 +36,7 @@ const Categories = () => {
                             </Link>
                         </div>
                       <div className='shadow-[0px_4px_8px_1px_rgba(0,0,0,0.2)] p-5 rounded-md'>
-                           <img className='w-20 h-20 mx-auto' src="https://i.ibb.co/68h6m6n/samsung-png.png" alt="" />
+                           <img className='w-20 h-20 mx-auto' src="https://www.pngitem.com/pimgs/m/367-3675422_redmi-note-7-pro-xiaomi-redmi-note-7.png" alt="" />
                             <Link
                             to={`/category/Readmi`}
                         >
