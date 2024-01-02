@@ -8,6 +8,7 @@ import ResaleProducts from '../ResaleProducts/ResaleProducts';
 
 const GetProductsByCategoryId = () => {
     const {name} = useParams();
+
     const {data: products, loading, refetch} = useGetRequest(`https://mobile-bazar-server-jet.vercel.app/product/category?category=${name}`)
     const [resaleProduct, setResaleProduct] = useState(null);
    
@@ -15,7 +16,7 @@ const GetProductsByCategoryId = () => {
        if(loading){
            return <Loader></Loader>
        }
-
+console.log(products);
        // return jsx
     return (
         <div>
