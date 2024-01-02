@@ -5,17 +5,17 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Slider from './Slider';
 const slideItems = [
     {
-        img: 'https://png.pngitem.com/pimgs/s/127-1273741_transparent-samsung-png-samsung-galaxy-s6-edge-plus.png',
+        img: 'https://i.ibb.co/KqCZ0y4/galaxys21-1.jpg',
         brand_name: "Samsung is the best \n in the world",
         id: 1,
     },
     {
-        img: 'https://i.pinimg.com/originals/a2/27/df/a227df4822db04573a0755bac50c7b32.png',
+        img: 'https://i.ibb.co/LkRJBH0/iphone13pro2.jpg',
         brand_name: "i-phone is the best \n in the world",
         id: 2,
     },
     {
-        img: 'https://www.pngitem.com/pimgs/m/367-3675422_redmi-note-7-pro-xiaomi-redmi-note-7.png',
+        img: 'https://i.ibb.co/cJPdknn/readmi1.png',
         brand_name: "Readmi is the best \n in the world",
         id: 3,
     },

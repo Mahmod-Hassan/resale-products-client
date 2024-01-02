@@ -31,7 +31,7 @@ const MyOrders = () => {
     if(loading){
         return <Loader></Loader>
     }
-
+console.log(orders)
     // return the jsx
     return (
         <div className='m-4'>

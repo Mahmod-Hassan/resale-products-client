@@ -5,11 +5,12 @@ const Slider = ({slider}) => {
 
   return (
     <>
-      <div className="image-layer"
+      <div className="image-layer flex justify-center items-center"
         style={{
           backgroundImage: `url(${img})`,
         }}
-      ></div>
+      >
+      </div>
       <div className="absolute top-1/3 -translate-y-1/2 text-center w-full main-slider__details">
         <TextModifier
           text={brand_name}
