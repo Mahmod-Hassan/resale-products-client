@@ -14,7 +14,7 @@ const Login = () => {
     const from = location.state?.from?.pathname || '/';
     const [userEmail, setUserEmail] = useState('');
     const [token] = useToken(userEmail);
-    // console.log(userEmail);
+
     // after getting token user will go to his location
     // where he want to go
     useEffect(() => {

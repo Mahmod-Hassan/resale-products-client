@@ -23,12 +23,18 @@ import { AuthContext } from './context/AuthProvider/AuthProvider';
 import useUserType from './hooks/useUserType';
 
 function App() {
+  // useContext is has 2 state user and loading
+  // after successfully login user information is stored in user state
   const {user, loading} = useContext(AuthContext);
+
+  // useUserType is my custom hook that check the user role
   const {userType, isLoading} = useUserType(user?.email);
-if(loading && isLoading){
-  return ''
-}
-console.log(userType)
+
+  // handle loading and isLoading state both
+   if(loading && isLoading){
+      return ''
+    }
+
   return (
     <div>
       {/* <RouterProvider router={router}></RouterProvider> */}

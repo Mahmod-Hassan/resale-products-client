@@ -27,12 +27,12 @@ const MyOrders = () => {
         }
         
     }
-    console.log('hit here')
+
     // if loading loader will display
     if(loading){
         return <Loader></Loader>
     }
-console.log(orders)
+
     // return the jsx
     return (
         <div className='m-4'>

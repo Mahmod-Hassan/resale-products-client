@@ -16,7 +16,7 @@ const GetProductsByCategoryId = () => {
        if(loading){
            return <Loader></Loader>
        }
-console.log(products);
+
        // return jsx
     return (
         <div>
