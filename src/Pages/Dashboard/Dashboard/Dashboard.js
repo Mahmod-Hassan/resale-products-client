@@ -1,13 +1,15 @@
 import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
-import useAdmin from '../../../hooks/useAdmin';
-import useSeller from '../../../hooks/useSeller';
+import useUserType from '../../../hooks/useUserType';
+// import useAdmin from '../../../hooks/useAdmin';
+// import useSeller from '../../../hooks/useSeller';
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
-    const [isAdmin] = useAdmin(user?.email);
-    const [isSeller] = useSeller(user?.email);
+    // const [isAdmin] = useAdmin(user?.email);
+    // const [isSeller] = useSeller(user?.email);
+const {userType} = useUserType(user?.email);
     return (
         <div className="drawer drawer-mobile border">
             <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
@@ -22,18 +24,18 @@ const Dashboard = () => {
                 <ul className="menu p-4 w-80 bg-base-100 text-base-content">
                     {/* sidebar content here */}
                 {
-                    (!isSeller && !isAdmin) && <Link to='/dashboard' className='hover:bg-slate-300 p-3 bg-slate-100'>My Orders</Link>
+                    userType === 'buyer' && <Link to='/dashboard' className='hover:bg-slate-300 p-3 bg-slate-100'>My Orders</Link>
                 }
                     
 
                  {
-                   (isSeller || isAdmin) && 
+                   (userType === 'admin' || userType === 'seller') && 
                     <Link to='/dashboard' className='hover:bg-slate-300 p-3 bg-slate-100 my-3'>My Products</Link>
                  }
                     
 
                   {
-                    isAdmin && <>
+                    userType === 'admin' && <>
                       <Link to='/dashboard/all-buyers' className='hover:bg-slate-300 p-3 bg-slate-100 my-3'>All Buyers</Link>
                     
                       <Link to='/dashboard/all-sellers' className='hover:bg-slate-300 p-3 bg-slate-100'>All Sellers</Link>

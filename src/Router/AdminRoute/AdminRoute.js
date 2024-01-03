@@ -2,18 +2,25 @@ import React, { useContext } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import Loader from '../../Pages/Shared/Loader/Loader';
 import { AuthContext } from '../../context/AuthProvider/AuthProvider';
-import useAdmin from '../../hooks/useAdmin';
+import useUserType from '../../hooks/useUserType';
+// import useAdmin from '../../hooks/useAdmin';
 
 const AdminRoute = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
-    const [isAdmin, isAdminLoading] = useAdmin(user?.email);
+    
+    // when checking user type I am handlin isLoading state
+    const {userType, isLoading} = useUserType(user?.email);
+    // const [isAdmin, isAdminLoading] = useAdmin(user?.email);
     const location = useLocation();
 
-    if (loading || isAdminLoading) {
+    // if (loading || isAdminLoading) {
+    //     return <Loader></Loader>
+    // }
+    if (loading || isLoading) {
         return <Loader></Loader>
     }
 
-    if (user && isAdmin) {
+    if (user && userType === 'admin') {
         return children;
     }
 

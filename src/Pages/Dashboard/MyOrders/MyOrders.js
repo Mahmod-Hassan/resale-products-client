@@ -27,6 +27,7 @@ const MyOrders = () => {
         }
         
     }
+    console.log('hit here')
     // if loading loader will display
     if(loading){
         return <Loader></Loader>

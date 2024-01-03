@@ -20,10 +20,15 @@ import AdminRoute from './Router/AdminRoute/AdminRoute';
 import PrivateRoute from './Router/PrivateRoute/PrivateRoute';
 import SellerRoute from './Router/SellerRoute/SellerRoute';
 import { AuthContext } from './context/AuthProvider/AuthProvider';
+import useUserType from './hooks/useUserType';
 
 function App() {
-  const {user} = useContext(AuthContext);
-  console.log(user?.role);
+  const {user, loading} = useContext(AuthContext);
+  const {userType, isLoading} = useUserType(user?.email);
+if(loading && isLoading){
+  return ''
+}
+console.log(userType)
   return (
     <div>
       {/* <RouterProvider router={router}></RouterProvider> */}
@@ -41,7 +46,7 @@ function App() {
                 
                 
                 <Route path='/dashboard' element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
-                      <Route path='/dashboard' element={user?.role === 'isSeller' || 'isAdmin' ? <MyProducts />:  <MyOrders />} />
+                      <Route path='/dashboard' element={userType === 'seller' || userType === 'admin' ? <MyProducts /> :  <MyOrders />} />
                       <Route path='/dashboard/all-buyers' element={<AdminRoute><AllBuyers /></AdminRoute>} />
                       <Route path='/dashboard/all-sellers' element={<AdminRoute><AllSellers /></AdminRoute>} />
                       <Route path='/dashboard/payment/:id' element={<Payment />} 
