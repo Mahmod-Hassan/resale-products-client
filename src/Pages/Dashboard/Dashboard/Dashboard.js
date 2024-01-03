@@ -2,14 +2,11 @@ import React, { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../../context/AuthProvider/AuthProvider';
 import useUserType from '../../../hooks/useUserType';
-// import useAdmin from '../../../hooks/useAdmin';
-// import useSeller from '../../../hooks/useSeller';
+
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
-    // const [isAdmin] = useAdmin(user?.email);
-    // const [isSeller] = useSeller(user?.email);
-const {userType} = useUserType(user?.email);
+    const {userType} = useUserType(user?.email);
     return (
         <div className="drawer drawer-mobile border">
             <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
